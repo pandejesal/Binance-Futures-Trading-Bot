@@ -110,6 +110,54 @@ class OrderService:
             self.logger.error(f"Order placement failed on exchange: {mapped_error}")
             raise mapped_error from e
 
+    def get_account_balances(self) -> Any:
+        """
+        Fetches the account balances from Binance Futures Testnet.
+        """
+        try:
+            return self.client.send_request(
+                method="GET",
+                endpoint="/fapi/v2/balance",
+                authenticated=True
+            )
+        except ExchangeAPIError as e:
+            raise self._map_binance_error(e) from e
+
+    def get_open_orders(self, symbol: Optional[str] = None) -> Any:
+        """
+        Fetches current open orders for a specific symbol or all symbols.
+        """
+        params = {}
+        if symbol:
+            params["symbol"] = symbol.upper()
+        try:
+            return self.client.send_request(
+                method="GET",
+                endpoint="/fapi/v1/openOrders",
+                params=params,
+                authenticated=True
+            )
+        except ExchangeAPIError as e:
+            raise self._map_binance_error(e) from e
+
+    def cancel_order(self, symbol: str, order_id: Any) -> Any:
+        """
+        Cancels an active open order by symbol and order ID.
+        """
+        params = {
+            "symbol": symbol.upper(),
+            "orderId": order_id
+        }
+        try:
+            return self.client.send_request(
+                method="DELETE",
+                endpoint="/fapi/v1/order",
+                params=params,
+                authenticated=True
+            )
+        except ExchangeAPIError as e:
+            raise self._map_binance_error(e) from e
+
     def _normalize_response(self, raw: Dict[str, Any], order_type: str) -> Dict[str, Any]:
         """
         Extracts execution fields and standardizes the exchange response structure.

@@ -170,6 +170,55 @@ export default function App() {
     }
   };
 
+  const runGenericCli = async (args: string) => {
+    setIsExecuting(true);
+    setExecutionResult(null);
+    setTerminalOutput(`$ python3 main.py ${args}\nRunning CLI command...`);
+
+    try {
+      const res = await fetch("/api/run-cli", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          args,
+          apiKey,
+          apiSecret
+        })
+      });
+
+      const data = await res.json();
+      setIsExecuting(false);
+
+      if (data.success) {
+        setExecutionResult({
+          success: true,
+          message: `CLI command executed successfully: python3 main.py ${args}`,
+          stdout: data.stdout,
+        });
+        setTerminalOutput(data.stdout || "Command executed successfully.");
+      } else {
+        setExecutionResult({
+          success: false,
+          message: `CLI command failed: python3 main.py ${args}`,
+          stderr: data.stderr || data.error,
+        });
+        setTerminalOutput(`${data.stdout || ""}\n[ERROR]: ${data.stderr || data.error || "Unknown Error"}`);
+      }
+
+      if (data.logs) {
+        setLogContent(data.logs);
+      }
+    } catch (err: any) {
+      setIsExecuting(false);
+      setExecutionResult({
+        success: false,
+        message: "Failed to communicate with bot backend server.",
+        stderr: err.message
+      });
+      setTerminalOutput(`[NETWORK CONNECTION FAILURE]: ${err.message}`);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#050505] text-zinc-100 flex flex-col font-sans antialiased selection:bg-emerald-500 selection:text-black">
       {/* Header Bar */}
@@ -260,6 +309,40 @@ export default function App() {
                   </button>
                 </div>
               </div>
+            </div>
+          </div>
+
+          {/* Quick CLI Tools */}
+          <div className="bg-[#0c0c0c] border border-zinc-800/80 rounded-xl p-4 shadow-2xl flex flex-col gap-2.5">
+            <span className="text-[11px] font-bold tracking-wider uppercase text-zinc-400 font-mono flex items-center gap-1.5">
+              <Terminal className="w-3.5 h-3.5 text-cyan-400" />
+              Quick CLI Actions
+            </span>
+            <div className="grid grid-cols-3 gap-2">
+              <button
+                type="button"
+                onClick={() => runGenericCli("--balance")}
+                disabled={isExecuting}
+                className="px-2.5 py-1.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-cyan-500/50 text-cyan-400 rounded text-[11px] font-mono transition flex items-center justify-center gap-1 cursor-pointer disabled:opacity-50"
+              >
+                💰 Balance
+              </button>
+              <button
+                type="button"
+                onClick={() => runGenericCli("--open-orders")}
+                disabled={isExecuting}
+                className="px-2.5 py-1.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-cyan-500/50 text-cyan-400 rounded text-[11px] font-mono transition flex items-center justify-center gap-1 cursor-pointer disabled:opacity-50"
+              >
+                📋 Orders
+              </button>
+              <button
+                type="button"
+                onClick={() => runGenericCli("--logs")}
+                disabled={isExecuting}
+                className="px-2.5 py-1.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-cyan-500/50 text-cyan-400 rounded text-[11px] font-mono transition flex items-center justify-center gap-1 cursor-pointer disabled:opacity-50"
+              >
+                📄 Logs
+              </button>
             </div>
           </div>
 

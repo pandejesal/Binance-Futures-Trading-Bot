@@ -57,6 +57,48 @@ async function startServer() {
     });
   });
 
+  // API Route: Run Generic CLI Command
+  app.post("/api/run-cli", (req, res) => {
+    const { args, apiKey, apiSecret } = req.body;
+
+    const envContent = `BINANCE_API_KEY="${apiKey || ''}"\nBINANCE_API_SECRET="${apiSecret || ''}"\n`;
+    try {
+      fs.writeFileSync(path.join(process.cwd(), ".env"), envContent);
+      fs.writeFileSync(path.join(process.cwd(), "trading_bot", ".env"), envContent);
+    } catch (e) {
+      console.error("Failed to write env configuration:", e);
+    }
+
+    const cmd = `python3 main.py ${args || ''}`;
+
+    const processEnv = { 
+      ...process.env, 
+      PYTHONPATH: `${path.join(process.cwd(), "trading_bot")}:${process.env.PYTHONPATH || ""}`,
+      BINANCE_API_KEY: apiKey, 
+      BINANCE_API_SECRET: apiSecret 
+    };
+
+    exec(cmd, { env: processEnv }, (error, stdout, stderr) => {
+      let logContent = "";
+      try {
+        const logPath = path.join(process.cwd(), "trading_bot.log");
+        if (fs.existsSync(logPath)) {
+          logContent = fs.readFileSync(logPath, "utf-8");
+        }
+      } catch (e) {
+        logContent = "Failed to load log file.";
+      }
+
+      res.json({
+        success: error ? false : true,
+        stdout,
+        stderr,
+        logs: logContent,
+        error: error ? error.message : null
+      });
+    });
+  });
+
   // API Route: Get Logs
   app.get("/api/logs", (req, res) => {
     try {

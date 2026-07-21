@@ -73,14 +73,29 @@ BINANCE_API_SECRET="your_actual_binance_testnet_secret_key"
 ### Command Execution Examples
 
 ```bash
+# Interactive Menu Wizard (Recommended)
+python3 bot/cli.py
+
 # Market Order
 python3 bot/cli.py --symbol BTCUSDT --side BUY --type MARKET --quantity 0.002
 
 # Limit Order
-python3 bot/cli.py --symbol ETHUSDT --side SELL --type LIMIT --quantity 1.5 --price 3450.75
+python3 bot/cli.py --symbol ETHUSDT --side SELL --type LIMIT --quantity 0.05 --price 3500.00
 
 # Stop Market Order
 python3 bot/cli.py --symbol SOLUSDT --side BUY --type STOP_MARKET --quantity 10.0 --stop-price 155.50
+
+# View Account Balances & Margin
+python3 bot/cli.py --balance
+
+# View Open Active Orders
+python3 bot/cli.py --open-orders
+
+# Cancel Open Order
+python3 bot/cli.py --cancel-order 14098668081 --symbol ETHUSDT
+
+# View Recent Logs
+python3 bot/cli.py --logs
 ```
 
 ---

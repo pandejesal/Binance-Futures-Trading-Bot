@@ -94,23 +94,59 @@ BINANCE_API_SECRET="your_actual_binance_testnet_secret_key"
 
 ---
 
-## 💻 CLI Command Execution Examples
+## 💻 CLI Command Execution & Interactive Wizard Examples
 
 Run these commands from your terminal (make sure your virtualenv is activated and `.env` is loaded).
 
-### A. Place a Standard MARKET Order
+### A. Launch Interactive Terminal Menu / Wizard (Recommended)
+Simply run `python main.py` with no flags (or with `-i` / `--interactive`) to open the interactive wizard:
 ```bash
-python3 bot/cli.py --symbol BTCUSDT --side BUY --type MARKET --quantity 0.002
+python3 main.py
+```
+This opens an interactive menu offering:
+- 🚀 **Interactive Order Wizard**: Step-by-step prompts for Symbol, Side, Type, Quantity, Price, Stop Price, with a pre-flight review card and execution confirmation.
+- 💰 **View Account Balances**: Live USDT margin, wallet balances, and unrealized PnL.
+- 📋 **View Active Open Orders**: Table of all live limit or stop orders on Binance Testnet.
+- ❌ **Cancel Active Orders**: Quick selection to cancel open orders by Order ID.
+- 📄 **View Execution Logs**: Inspect the latest entries in `trading_bot.log`.
+
+---
+
+### B. Direct Command-Line Flag Mode
+
+#### 1. Place a Standard MARKET Order
+```bash
+python3 main.py --symbol BTCUSDT --side BUY --type MARKET --quantity 0.002
 ```
 
-### B. Place a GTC LIMIT Order
+#### 2. Place a GTC LIMIT Order
 ```bash
-python3 bot/cli.py --symbol ETHUSDT --side SELL --type LIMIT --quantity 1.5 --price 3450.75
+python3 main.py --symbol ETHUSDT --side SELL --type LIMIT --quantity 0.05 --price 3500.00
 ```
 
-### C. Place a STOP_MARKET Trigger Order
+#### 3. Place a STOP_MARKET Trigger Order
 ```bash
-python3 bot/cli.py --symbol SOLUSDT --side BUY --type STOP_MARKET --quantity 10.0 --stop-price 155.50
+python3 main.py --symbol SOLUSDT --side BUY --type STOP_MARKET --quantity 10.0 --stop-price 155.50
+```
+
+#### 4. View Account Balances & Available Margin
+```bash
+python3 main.py --balance
+```
+
+#### 5. View Active Open Orders
+```bash
+python3 main.py --open-orders
+```
+
+#### 6. Cancel an Active Order
+```bash
+python3 main.py --cancel-order 14098668081 --symbol ETHUSDT
+```
+
+#### 7. View Recent Execution Logs
+```bash
+python3 main.py --logs
 ```
 
 ---
