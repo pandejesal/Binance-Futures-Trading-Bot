@@ -1,9 +1,9 @@
 """
 Command-Line Interface (CLI) Entry Point.
 
-Builds the CLI parser, supports both direct flag execution and an interactive terminal menu/wizard,
-interacts with the OrderService, displays formatted summary cards and tables to the console, and
-implements robust error handling with tracebacks written to log files.
+Builds the CLI parser, supports both direct flag execution, short positional commands
+(e.g., `python main.py buy BTCUSDT 0.002`), command-line API key flags (-k / -s),
+and an interactive terminal menu/wizard.
 """
 
 import argparse
@@ -13,7 +13,8 @@ import sys
 import traceback
 from typing import List, Optional
 
-from bot import verify_config, ConfigurationError
+from bot.config import config, ConfigurationError
+from bot import verify_config
 from bot.client import BinanceClient
 from bot.exceptions import ValidationError, ExchangeConnectionError, ExchangeAPIError
 from bot.logging_config import setup_logging
@@ -255,179 +256,365 @@ def interactive_order_wizard(service: OrderService, logger: logging.Logger) -> N
         print(f"  {COLOR_BOLD}Error:{COLOR_RESET} {e}")
         print(f"{COLOR_RED}" + "=" * 65 + COLOR_RESET)
 
+def reconfigure_keys() -> None:
+    """Interactively re-configures Binance API Key and Secret."""
+    print_header("🔑 UPDATE BINANCE API CREDENTIALS", COLOR_YELLOW)
+    new_key = input(f"{COLOR_BOLD}Enter Binance Testnet API Key: {COLOR_RESET}").strip()
+    new_secret = input(f"{COLOR_BOLD}Enter Binance Testnet API Secret: {COLOR_RESET}").strip()
+    if new_key and new_secret:
+        config.set_credentials(new_key, new_secret)
+        save_env = input(f"{COLOR_CYAN}Save credentials to .env file? (y/n) [default y]: {COLOR_RESET}").strip().lower()
+        if save_env in ("", "y", "yes"):
+            try:
+                env_content = f"BINANCE_API_KEY={new_key}\nBINANCE_API_SECRET={new_secret}\nTESTNET_URL=https://testnet.binancefuture.com\n"
+                with open(".env", "w", encoding="utf-8") as f:
+                    f.write(env_content)
+                with open(os.path.join("trading_bot", ".env"), "w", encoding="utf-8") as f:
+                    f.write(env_content)
+                print(f"{COLOR_GREEN}✓ API Credentials saved to .env!{COLOR_RESET}\n")
+            except Exception as e:
+                print(f"{COLOR_RED}Could not write to .env: {e}{COLOR_RESET}\n")
+    else:
+        print(f"{COLOR_RED}API Key and Secret cannot be empty.{COLOR_RESET}")
+
 def run_interactive_menu(logger: logging.Logger) -> None:
-    """Runs the main interactive terminal menu loop."""
+    """Runs the main interactive terminal menu loop and command shell."""
     print_banner()
-    verify_config()
+    
+    # Ensure API Key and Secret are collected if missing
+    try:
+        config.verify(interactive_prompt=True)
+    except ConfigurationError as e:
+        print(f"{COLOR_RED}{e}{COLOR_RESET}")
+        return
+
     client = BinanceClient()
     service = OrderService(client=client)
 
+    print(f"\n{COLOR_GREEN}✓ Connected to Binance Testnet successfully!{COLOR_RESET}")
+    print(f"{COLOR_CYAN}Type menu numbers (1-6) or type commands directly (e.g. 'buy BTCUSDT 0.002', 'balance', 'orders', 'keys', 'help', 'exit').{COLOR_RESET}")
+
     while True:
-        print(f"\n{COLOR_CYAN}{COLOR_BOLD}MAIN MENU - CHOOSE AN ACTION:{COLOR_RESET}")
-        print(f"  [1] 🚀 Place New Order (Interactive Wizard)")
-        print(f"  [2] 💰 View Account Balance & Available Margin")
-        print(f"  [3] 📋 View Active Open Orders")
-        print(f"  [4] ❌ Cancel an Active Open Order")
-        print(f"  [5] 📄 View Recent Execution Logs")
-        print(f"  [6] 🚪 Exit")
+        print(f"\n{COLOR_CYAN}{COLOR_BOLD}COMMANDS & MENU OPTIONS:{COLOR_RESET}")
+        print(f"  [1] 🚀 Interactive Order Wizard")
+        print(f"  [2] 💰 Balance (`balance`)")
+        print(f"  [3] 📋 Open Orders (`orders`)")
+        print(f"  [4] ❌ Cancel Order (`cancel <SYMBOL> <ID>`)")
+        print(f"  [5] 📄 View Logs (`logs`)")
+        print(f"  [k] 🔑 Update API Keys (`keys`)")
+        print(f"  [6] 🚪 Exit (`exit`)")
         
-        choice = input(f"\n{COLOR_BOLD}Enter choice (1-6): {COLOR_RESET}").strip()
-        
-        if choice == "1":
+        user_input = input(f"\n{COLOR_BOLD}{COLOR_MAGENTA}trading-bot> {COLOR_RESET}").strip()
+        if not user_input:
+            continue
+
+        parts = user_input.split()
+        cmd = parts[0].lower()
+
+        if user_input == "1":
             interactive_order_wizard(service, logger)
-        elif choice == "2":
+        elif user_input == "2" or cmd in ("balance", "bal"):
             display_balance(service)
-        elif choice == "3":
-            sym = input(f"{COLOR_BOLD}Filter by symbol (leave blank for all): {COLOR_RESET}").strip()
-            display_open_orders(service, symbol=sym if sym else None)
-        elif choice == "4":
-            sym = input(f"{COLOR_BOLD}Enter Symbol (e.g. BTCUSDT, ETHUSDT): {COLOR_RESET}").strip().upper()
-            oid = input(f"{COLOR_BOLD}Enter Order ID to cancel: {COLOR_RESET}").strip()
-            if sym and oid:
-                cancel_order_action(service, symbol=sym, order_id=oid)
+        elif user_input == "3" or cmd in ("orders", "open"):
+            sym = parts[1].upper() if len(parts) > 1 else None
+            if not sym and user_input == "3":
+                sym_in = input(f"{COLOR_BOLD}Filter by symbol (leave blank for all): {COLOR_RESET}").strip()
+                sym = sym_in.upper() if sym_in else None
+            display_open_orders(service, symbol=sym)
+        elif user_input == "4" or cmd == "cancel":
+            if len(parts) >= 3:
+                cancel_order_action(service, symbol=parts[1].upper(), order_id=parts[2])
             else:
-                print(f"{COLOR_RED}Symbol and Order ID are required.{COLOR_RESET}")
-        elif choice == "5":
+                sym = input(f"{COLOR_BOLD}Enter Symbol (e.g. BTCUSDT): {COLOR_RESET}").strip().upper()
+                oid = input(f"{COLOR_BOLD}Enter Order ID to cancel: {COLOR_RESET}").strip()
+                if sym and oid:
+                    cancel_order_action(service, symbol=sym, order_id=oid)
+                else:
+                    print(f"{COLOR_RED}Symbol and Order ID are required.{COLOR_RESET}")
+        elif user_input == "5" or cmd in ("logs", "log"):
             display_logs(lines=25)
-        elif choice == "6" or choice.lower() in ["exit", "q", "quit"]:
+        elif cmd in ("k", "keys", "config", "key"):
+            reconfigure_keys()
+            # Re-initialize client & service with new keys
+            client = BinanceClient()
+            service = OrderService(client=client)
+        elif user_input == "6" or cmd in ("exit", "q", "quit"):
             print(f"\n{COLOR_GREEN}Exiting Trading Bot CLI. Goodbye!{COLOR_RESET}\n")
             break
+        elif cmd in ("help", "h", "?"):
+            print_header("📖 CLI COMMAND HELP", COLOR_CYAN)
+            print("  buy <SYMBOL> <QTY> [PRICE]     e.g., buy BTCUSDT 0.002")
+            print("                                 e.g., buy BTCUSDT 0.002 65000")
+            print("  sell <SYMBOL> <QTY> [PRICE]    e.g., sell ETHUSDT 0.05 3500")
+            print("  balance                        View balances & available margin")
+            print("  orders [SYMBOL]                View open active orders")
+            print("  cancel <SYMBOL> <ORDER_ID>     Cancel specific open order")
+            print("  logs                           View execution log history")
+            print("  keys                           Re-enter / update Binance API Key & Secret")
+            print("  exit                           Close CLI session")
+            print(f"{COLOR_CYAN}" + "=" * 65 + COLOR_RESET)
+        elif cmd in ("buy", "sell"):
+            side = cmd.upper()
+            if len(parts) >= 3:
+                symbol = parts[1].upper()
+                try:
+                    qty = float(parts[2])
+                except ValueError:
+                    print(f"{COLOR_RED}Invalid quantity numeric value: {parts[2]}{COLOR_RESET}")
+                    continue
+                
+                price = None
+                order_type = "MARKET"
+                if len(parts) >= 4:
+                    try:
+                        price = float(parts[3])
+                        order_type = "LIMIT"
+                    except ValueError:
+                        print(f"{COLOR_RED}Invalid price numeric value: {parts[3]}{COLOR_RESET}")
+                        continue
+
+                try:
+                    validated = validate_order_inputs(
+                        symbol=symbol,
+                        side=side,
+                        order_type=order_type,
+                        quantity=qty,
+                        price=price
+                    )
+                    sym_v, side_v, type_v, qty_v, price_v, _ = validated
+
+                    print(f"{COLOR_YELLOW}{get_info_symbol()} Dispatching order payload to exchange...{COLOR_RESET}")
+                    execution = service.place_order(
+                        symbol=sym_v,
+                        side=side_v,
+                        order_type=type_v,
+                        quantity=qty_v,
+                        price=price_v
+                    )
+
+                    print_header(f"{get_success_symbol()} ORDER PLACED SUCCESSFULLY", COLOR_GREEN)
+                    print(f"  {COLOR_BOLD}Order ID:{COLOR_RESET}      {execution['orderId']}")
+                    print(f"  {COLOR_BOLD}Status:{COLOR_RESET}        {execution['status']}")
+                    print(f"  {COLOR_BOLD}Executed Qty:{COLOR_RESET}  {execution['executedQty']} (of {execution['origQty']})")
+                    print(f"  {COLOR_BOLD}Average Price:{COLOR_RESET} {format_price(execution['avgPrice'])} USDT")
+                    print(f"  {COLOR_BOLD}Symbol/Side:{COLOR_RESET}   {execution['symbol']} / {execution['side']}")
+                    print(f"  {COLOR_BOLD}Type/ClientID:{COLOR_RESET} {execution['type']} / {execution['clientOrderId']}")
+                    print(f"{COLOR_GREEN}" + "=" * 65 + COLOR_RESET)
+                except Exception as e:
+                    print(f"{COLOR_RED}{get_failure_symbol()} Order placement failed: {e}{COLOR_RESET}")
+            else:
+                print(f"{COLOR_RED}Usage: {cmd} <SYMBOL> <QUANTITY> [PRICE]{COLOR_RESET}")
+                print(f"Example: {cmd} BTCUSDT 0.002")
+                print(f"Example: {cmd} BTCUSDT 0.002 65000")
         else:
-            print(f"{COLOR_RED}Invalid option '{choice}'. Please enter a number between 1 and 6.{COLOR_RESET}")
+            print(f"{COLOR_RED}Unknown option or command '{user_input}'. Type 'help' or '1'-'6'.{COLOR_RESET}")
 
 def main(args_list: Optional[List[str]] = None) -> int:
     """
-    Main CLI entry point function. Handles direct command-line arguments as well as interactive mode.
+    Main CLI entry point function. Handles direct flags, short positional commands,
+    API key arguments, and interactive menu wizard.
     """
     logger = setup_logging("trading_bot.log")
     logger.info("Application starting...")
 
-    # Check if executed with no arguments (e.g. `python main.py`), launch interactive menu automatically
-    if args_list is None and len(sys.argv) == 1:
+    raw_args = list(args_list) if args_list is not None else sys.argv[1:]
+
+    # Check for -k / --api-key and -s / --api-secret in arguments
+    api_key_override = None
+    api_secret_override = None
+
+    filtered_args = []
+    i = 0
+    while i < len(raw_args):
+        arg = raw_args[i]
+        if arg in ("-k", "--api-key") and i + 1 < len(raw_args):
+            api_key_override = raw_args[i + 1]
+            i += 2
+        elif arg in ("-s", "--api-secret") and i + 1 < len(raw_args):
+            api_secret_override = raw_args[i + 1]
+            i += 2
+        else:
+            filtered_args.append(arg)
+            i += 1
+
+    if api_key_override or api_secret_override:
+        config.set_credentials(api_key_override or "", api_secret_override or "")
+
+    # Check for short positional commands (e.g. `python main.py buy BTCUSDT 0.002 [price]`)
+    positional_action = None
+    pos_symbol = None
+    pos_side = None
+    pos_type = None
+    pos_qty = None
+    pos_price = None
+    pos_order_id = None
+
+    if filtered_args:
+        cmd = filtered_args[0].lower()
+        if cmd in ("buy", "sell"):
+            pos_side = cmd.upper()
+            if len(filtered_args) >= 3:
+                pos_symbol = filtered_args[1].upper()
+                try:
+                    pos_qty = float(filtered_args[2])
+                except ValueError:
+                    print(f"{COLOR_RED}Error: Quantity '{filtered_args[2]}' must be a valid number.{COLOR_RESET}")
+                    return 1
+
+                if len(filtered_args) >= 4:
+                    try:
+                        pos_price = float(filtered_args[3])
+                        pos_type = "LIMIT"
+                    except ValueError:
+                        print(f"{COLOR_RED}Error: Price '{filtered_args[3]}' must be a valid number.{COLOR_RESET}")
+                        return 1
+                else:
+                    pos_type = "MARKET"
+                positional_action = "place_order"
+            else:
+                print(f"{COLOR_RED}Usage: python main.py {cmd} <SYMBOL> <QUANTITY> [PRICE]{COLOR_RESET}")
+                print(f"Example: python main.py {cmd} BTCUSDT 0.002")
+                print(f"Example: python main.py {cmd} BTCUSDT 0.002 65000")
+                return 1
+
+        elif cmd in ("balance", "bal"):
+            positional_action = "balance"
+        elif cmd in ("orders", "open"):
+            positional_action = "open_orders"
+            if len(filtered_args) >= 2:
+                pos_symbol = filtered_args[1].upper()
+        elif cmd == "cancel":
+            if len(filtered_args) >= 3:
+                pos_symbol = filtered_args[1].upper()
+                pos_order_id = filtered_args[2]
+                positional_action = "cancel_order"
+            else:
+                print(f"{COLOR_RED}Usage: python main.py cancel <SYMBOL> <ORDER_ID>{COLOR_RESET}")
+                return 1
+        elif cmd in ("logs", "log"):
+            positional_action = "logs"
+        elif cmd in ("menu", "wizard", "interactive", "-i", "--interactive"):
+            positional_action = "interactive"
+
+    # Handle direct positional shortcuts immediately
+    if positional_action == "logs":
+        display_logs()
+        return 0
+
+    if positional_action == "interactive" or (not filtered_args and positional_action is None):
         try:
             run_interactive_menu(logger)
             return 0
         except KeyboardInterrupt:
             print(f"\n{COLOR_YELLOW}\nUser interrupted. Exiting trading bot...{COLOR_RESET}")
             return 0
-        except Exception as e:
-            print(f"{COLOR_RED}Interactive session error: {e}{COLOR_RESET}")
-            return 1
 
+    # For actions requiring API calls, verify configuration (with interactive prompt fallback if needed)
+    try:
+        config.verify(interactive_prompt=True)
+        client = BinanceClient()
+        service = OrderService(client=client)
+
+        if positional_action == "balance":
+            display_balance(service)
+            return 0
+
+        if positional_action == "open_orders":
+            display_open_orders(service, symbol=pos_symbol)
+            return 0
+
+        if positional_action == "cancel_order":
+            cancel_order_action(service, symbol=pos_symbol, order_id=pos_order_id)
+            return 0
+
+        if positional_action == "place_order":
+            print_header("ORDER REQUEST SUMMARY", COLOR_CYAN)
+            print(f"  {COLOR_BOLD}Symbol:{COLOR_RESET}      {pos_symbol}")
+            print(f"  {COLOR_BOLD}Side:{COLOR_RESET}        {pos_side}")
+            print(f"  {COLOR_BOLD}Order Type:{COLOR_RESET}  {pos_type}")
+            print(f"  {COLOR_BOLD}Quantity:{COLOR_RESET}    {pos_qty}")
+            if pos_price is not None:
+                print(f"  {COLOR_BOLD}Limit Price:{COLOR_RESET} {format_price(pos_price)} USDT")
+            print(f"{COLOR_CYAN}" + "=" * 65 + COLOR_RESET)
+
+            validated = validate_order_inputs(
+                symbol=pos_symbol,
+                side=pos_side,
+                order_type=pos_type,
+                quantity=pos_qty,
+                price=pos_price
+            )
+            symbol_v, side_v, type_v, qty_v, price_v, _ = validated
+
+            print(f"{COLOR_YELLOW}{get_info_symbol()} Dispatching order payload to exchange...{COLOR_RESET}")
+            execution = service.place_order(
+                symbol=symbol_v,
+                side=side_v,
+                order_type=type_v,
+                quantity=qty_v,
+                price=price_v
+            )
+
+            header_text = f"{get_success_symbol()} ORDER PLACED SUCCESSFULLY"
+            print_header(header_text, COLOR_GREEN)
+            print(f"  {COLOR_BOLD}Order ID:{COLOR_RESET}      {execution['orderId']}")
+            print(f"  {COLOR_BOLD}Status:{COLOR_RESET}        {execution['status']}")
+            print(f"  {COLOR_BOLD}Executed Qty:{COLOR_RESET}  {execution['executedQty']} (of {execution['origQty']})")
+            print(f"  {COLOR_BOLD}Average Price:{COLOR_RESET} {format_price(execution['avgPrice'])} USDT")
+            print(f"  {COLOR_BOLD}Symbol/Side:{COLOR_RESET}   {execution['symbol']} / {execution['side']}")
+            print(f"  {COLOR_BOLD}Type/ClientID:{COLOR_RESET} {execution['type']} / {execution['clientOrderId']}")
+            print(f"{COLOR_GREEN}" + "=" * 65 + COLOR_RESET)
+            return 0
+
+    except (ValidationError, ConfigurationError, ExchangeConnectionError, ExchangeAPIError) as e:
+        print(f"{COLOR_RED}{get_failure_symbol()} Error: {e}{COLOR_RESET}")
+        return 1
+
+    # Fallback to standard ArgParse parser for legacy full flags
     parser = argparse.ArgumentParser(
         description="Production-grade Binance Futures Testnet (USDT-M) Trading CLI Bot",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
 
-    parser.add_argument(
-        "-i", "--interactive",
-        action="store_true",
-        help="Launch the interactive terminal wizard menu"
-    )
-    parser.add_argument(
-        "-b", "--balance",
-        action="store_true",
-        help="Fetch and display Binance Futures account balances and available margin"
-    )
-    parser.add_argument(
-        "-o", "--open-orders",
-        action="store_true",
-        help="Fetch and display currently open active orders"
-    )
-    parser.add_argument(
-        "--cancel-order",
-        type=str,
-        default=None,
-        help="Order ID to cancel (must also specify --symbol)"
-    )
-    parser.add_argument(
-        "--logs",
-        action="store_true",
-        help="Display recent execution logs from trading_bot.log"
-    )
-    parser.add_argument(
-        "--symbol",
-        type=str,
-        default=None,
-        help="Trading pair symbol (e.g., BTCUSDT, ETHUSDT)"
-    )
-    parser.add_argument(
-        "--side",
-        type=str,
-        default=None,
-        choices=["BUY", "SELL", "buy", "sell"],
-        help="Order execution side (BUY or SELL)"
-    )
-    parser.add_argument(
-        "--type",
-        type=str,
-        default=None,
-        choices=["MARKET", "LIMIT", "STOP_MARKET", "market", "limit", "stop_market"],
-        help="Order execution type (MARKET, LIMIT, or STOP_MARKET)"
-    )
-    parser.add_argument(
-        "--quantity",
-        type=float,
-        default=None,
-        help="Order asset size (must be strictly positive)"
-    )
-    parser.add_argument(
-        "--price",
-        type=float,
-        default=None,
-        help="Execution target price. Mandatory for LIMIT orders."
-    )
-    parser.add_argument(
-        "--stop-price",
-        type=float,
-        default=None,
-        help="Trigger stop price. Mandatory for STOP_MARKET orders."
-    )
+    parser.add_argument("-k", "--api-key", type=str, help="Binance Testnet API Key")
+    parser.add_argument("-s", "--api-secret", type=str, help="Binance Testnet API Secret")
+    parser.add_argument("-i", "--interactive", action="store_true", help="Launch interactive wizard")
+    parser.add_argument("-b", "--balance", action="store_true", help="Fetch account balances")
+    parser.add_argument("-o", "--open-orders", action="store_true", help="Fetch open orders")
+    parser.add_argument("--cancel-order", type=str, help="Order ID to cancel")
+    parser.add_argument("--logs", action="store_true", help="Display recent execution logs")
+    parser.add_argument("--symbol", type=str, help="Trading pair symbol (e.g., BTCUSDT)")
+    parser.add_argument("--side", type=str, choices=["BUY", "SELL", "buy", "sell"], help="BUY or SELL")
+    parser.add_argument("--type", type=str, choices=["MARKET", "LIMIT", "STOP_MARKET"], help="Order type")
+    parser.add_argument("--quantity", type=float, help="Order quantity")
+    parser.add_argument("--price", type=float, help="Limit price")
+    parser.add_argument("--stop-price", type=float, help="Stop trigger price")
 
-    parsed = parser.parse_args(args_list)
+    parsed = parser.parse_args(filtered_args)
 
-    # 1. Handle Interactive flag
-    if parsed.interactive:
-        try:
-            run_interactive_menu(logger)
-            return 0
-        except KeyboardInterrupt:
-            print(f"\n{COLOR_YELLOW}\nUser interrupted. Exiting trading bot...{COLOR_RESET}")
-            return 0
-
-    # 2. Handle Logs flag
     if parsed.logs:
         display_logs()
         return 0
 
-    # Initialize client/service for other single commands
     try:
-        verify_config()
+        config.verify(interactive_prompt=True)
         client = BinanceClient()
         service = OrderService(client=client)
 
-        # 3. Handle Balance flag
         if parsed.balance:
             display_balance(service)
             return 0
-
-        # 4. Handle Open Orders flag
         if parsed.open_orders:
             display_open_orders(service, symbol=parsed.symbol)
             return 0
-
-        # 5. Handle Cancel Order flag
         if parsed.cancel_order:
             if not parsed.symbol:
-                print(f"{COLOR_RED}Error: --symbol is required when using --cancel-order.{COLOR_RESET}")
+                print(f"{COLOR_RED}Error: --symbol required when cancelling order.{COLOR_RESET}")
                 return 1
             cancel_order_action(service, symbol=parsed.symbol, order_id=parsed.cancel_order)
             return 0
 
-        # 6. Standard Order Placement Execution
         if not parsed.symbol or not parsed.side or not parsed.type or parsed.quantity is None:
-            print_banner()
-            print(f"{COLOR_YELLOW}No specific action specified. Launching Interactive Menu...{COLOR_RESET}\n")
             run_interactive_menu(logger)
             return 0
 
@@ -438,18 +625,6 @@ def main(args_list: Optional[List[str]] = None) -> int:
         raw_price = parsed.price
         raw_stop_price = parsed.stop_price
 
-        print_header("ORDER REQUEST SUMMARY", COLOR_CYAN)
-        print(f"  {COLOR_BOLD}Symbol:{COLOR_RESET}      {raw_symbol.upper()}")
-        print(f"  {COLOR_BOLD}Side:{COLOR_RESET}        {raw_side}")
-        print(f"  {COLOR_BOLD}Order Type:{COLOR_RESET}  {raw_type}")
-        print(f"  {COLOR_BOLD}Quantity:{COLOR_RESET}    {raw_qty}")
-        if raw_price is not None:
-            print(f"  {COLOR_BOLD}Limit Price:{COLOR_RESET} {format_price(raw_price)} USDT")
-        if raw_stop_price is not None:
-            print(f"  {COLOR_BOLD}Stop Price:{COLOR_RESET}  {format_price(raw_stop_price)} USDT")
-        print(f"{COLOR_CYAN}" + "=" * 65 + COLOR_RESET)
-        print(f"{COLOR_YELLOW}{get_info_symbol()} Validating execution parameters locally...{COLOR_RESET}")
-
         validated = validate_order_inputs(
             symbol=raw_symbol,
             side=raw_side,
@@ -458,12 +633,8 @@ def main(args_list: Optional[List[str]] = None) -> int:
             price=raw_price,
             stop_price=raw_stop_price
         )
-        
         symbol_v, side_v, type_v, qty_v, price_v, stop_price_v = validated
-        logger.info(f"Pre-flight parameters passed: {side_v} {type_v} for {qty_v} contracts of {symbol_v}")
 
-        print(f"{COLOR_YELLOW}{get_info_symbol()} Connecting to Binance Futures Testnet...{COLOR_RESET}")
-        print(f"{COLOR_YELLOW}{get_info_symbol()} Dispatching order payload to exchange...{COLOR_RESET}")
         execution = service.place_order(
             symbol=symbol_v,
             side=side_v,
@@ -473,64 +644,18 @@ def main(args_list: Optional[List[str]] = None) -> int:
             stop_price=stop_price_v
         )
 
-        header_text = f"{get_success_symbol()} ORDER PLACED SUCCESSFULLY"
-        print_header(header_text, COLOR_GREEN)
+        print_header(f"{get_success_symbol()} ORDER PLACED SUCCESSFULLY", COLOR_GREEN)
         print(f"  {COLOR_BOLD}Order ID:{COLOR_RESET}      {execution['orderId']}")
         print(f"  {COLOR_BOLD}Status:{COLOR_RESET}        {execution['status']}")
         print(f"  {COLOR_BOLD}Executed Qty:{COLOR_RESET}  {execution['executedQty']} (of {execution['origQty']})")
         print(f"  {COLOR_BOLD}Average Price:{COLOR_RESET} {format_price(execution['avgPrice'])} USDT")
         print(f"  {COLOR_BOLD}Symbol/Side:{COLOR_RESET}   {execution['symbol']} / {execution['side']}")
         print(f"  {COLOR_BOLD}Type/ClientID:{COLOR_RESET} {execution['type']} / {execution['clientOrderId']}")
-        
-        timestamp_ms = execution['updateTime']
-        if timestamp_ms > 0:
-            print(f"  {COLOR_BOLD}Timestamp:{COLOR_RESET}     {format_timestamp(timestamp_ms)}")
-        
         print(f"{COLOR_GREEN}" + "=" * 65 + COLOR_RESET)
-        print(f"{COLOR_GREEN}💡 Success details recorded in trading_bot.log{COLOR_RESET}")
-        logger.info(f"CLI successful execution completed for order ID: {execution['orderId']}")
         return 0
 
-    except ValidationError as e:
-        logger.warning(f"Local Pre-flight validation rejected parameters: {e}")
-        header_text = f"{get_failure_symbol()} LOCAL VALIDATION ERROR"
-        print_header(header_text, COLOR_RED)
-        print(f"  {COLOR_BOLD}Reason:{COLOR_RESET} {e}")
-        print(f"{COLOR_RED}" + "=" * 65 + COLOR_RESET)
-        return 1
-
-    except ConfigurationError as e:
-        logger.error(f"Environment configuration mismatch: {e}")
-        header_text = f"{get_failure_symbol()} CONFIGURATION ERROR"
-        print_header(header_text, COLOR_RED)
-        print(f"  {COLOR_BOLD}Reason:{COLOR_RESET} {e}")
-        print(f"{COLOR_RED}" + "=" * 65 + COLOR_RESET)
-        return 1
-
-    except ExchangeConnectionError as e:
-        logger.error(f"Network connectivity failure: {e}")
-        header_text = f"{get_failure_symbol()} NETWORK CONNECTION FAILURE"
-        print_header(header_text, COLOR_RED)
-        print(f"  {COLOR_BOLD}Reason:{COLOR_RESET} {e}")
-        print(f"{COLOR_RED}" + "=" * 65 + COLOR_RESET)
-        return 1
-
-    except ExchangeAPIError as e:
-        logger.error(f"Exchange refused request: {e}")
-        header_text = f"{get_failure_symbol()} EXCHANGE API REFUSED REQUEST"
-        print_header(header_text, COLOR_RED)
-        print(f"  {COLOR_BOLD}HTTP Code:{COLOR_RESET} {e.status_code}")
-        print(f"  {COLOR_BOLD}Error Code:{COLOR_RESET} {e.binance_code}")
-        print(f"  {COLOR_BOLD}Message:{COLOR_RESET} {e.args[0]}")
-        print(f"{COLOR_RED}" + "=" * 65 + COLOR_RESET)
-        return 1
-
     except Exception as e:
-        logger.critical(f"Unhandled general exception occurred: {e}", exc_info=True)
-        header_text = f"{get_failure_symbol()} CRITICAL BOT EXCEPTION"
-        print_header(header_text, COLOR_RED)
-        print(f"  {COLOR_BOLD}An unexpected system error occurred:{COLOR_RESET} {e}")
-        print(f"{COLOR_RED}" + "=" * 65 + COLOR_RESET)
+        print(f"{COLOR_RED}{get_failure_symbol()} Error: {e}{COLOR_RESET}")
         return 1
 
 if __name__ == "__main__":

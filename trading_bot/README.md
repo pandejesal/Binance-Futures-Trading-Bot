@@ -73,29 +73,30 @@ BINANCE_API_SECRET="your_actual_binance_testnet_secret_key"
 ### Command Execution Examples
 
 ```bash
-# Interactive Menu Wizard (Recommended)
-python3 bot/cli.py
+# ⚡ Ultra-Fast Short Commands (Recommended)
+python3 main.py buy BTCUSDT 0.002            # Market Buy
+python3 main.py buy BTCUSDT 0.002 65000      # Limit Buy @ 65000
+python3 main.py sell ETHUSDT 0.05            # Market Sell
+python3 main.py sell ETHUSDT 0.05 3500       # Limit Sell @ 3500
+python3 main.py balance                      # View Balances & Margin
+python3 main.py orders                       # View Open Orders
+python3 main.py cancel BTCUSDT 23202119036   # Cancel Order
+python3 main.py logs                         # View Recent Logs
 
-# Market Order
-python3 bot/cli.py --symbol BTCUSDT --side BUY --type MARKET --quantity 0.002
+# Pass API credentials directly
+python3 main.py -k YOUR_API_KEY -s YOUR_API_SECRET balance
 
-# Limit Order
-python3 bot/cli.py --symbol ETHUSDT --side SELL --type LIMIT --quantity 0.05 --price 3500.00
+# Interactive Menu Wizard
+python3 main.py
 
-# Stop Market Order
-python3 bot/cli.py --symbol SOLUSDT --side BUY --type STOP_MARKET --quantity 10.0 --stop-price 155.50
-
-# View Account Balances & Margin
-python3 bot/cli.py --balance
-
-# View Open Active Orders
-python3 bot/cli.py --open-orders
-
-# Cancel Open Order
-python3 bot/cli.py --cancel-order 14098668081 --symbol ETHUSDT
-
-# View Recent Logs
-python3 bot/cli.py --logs
+# Standard Flag Mode
+python3 main.py --symbol BTCUSDT --side BUY --type MARKET --quantity 0.002
+python3 main.py --symbol ETHUSDT --side SELL --type LIMIT --quantity 0.05 --price 3500.00
+python3 main.py --symbol SOLUSDT --side BUY --type STOP_MARKET --quantity 10.0 --stop-price 155.50
+python3 main.py --balance
+python3 main.py --open-orders
+python3 main.py --cancel-order 14098668081 --symbol ETHUSDT
+python3 main.py --logs
 ```
 
 ---

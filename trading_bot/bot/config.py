@@ -7,6 +7,7 @@ and provides a clean interface for other modules to access configuration.
 """
 
 import os
+import sys
 from typing import Optional, Set
 from bot.exceptions import ConfigurationError
 
@@ -38,24 +39,29 @@ class AppConfig:
         self.api_secret: str = os.getenv("BINANCE_API_SECRET", "").strip()
         self.base_url: str = os.getenv("TESTNET_URL", "https://testnet.binancefuture.com").strip()
 
-    def verify(self) -> None:
+    def set_credentials(self, api_key: str, api_secret: str) -> None:
+        """Sets API credentials dynamically in memory and environment."""
+        if api_key:
+            self.api_key = api_key.strip()
+            os.environ["BINANCE_API_KEY"] = self.api_key
+        if api_secret:
+            self.api_secret = api_secret.strip()
+            os.environ["BINANCE_API_SECRET"] = self.api_secret
+
+    def reload(self) -> None:
+        """Reloads credentials from os.environ."""
+        self.api_key = os.getenv("BINANCE_API_KEY", "").strip()
+        self.api_secret = os.getenv("BINANCE_API_SECRET", "").strip()
+
+    def verify(self, interactive_prompt: bool = True) -> None:
         """
-        Validates that required Binance API credentials are set in the environment
-        and are not default placeholder strings.
+        Validates that required Binance API credentials are set in the environment.
+        If interactive_prompt is True and credentials are missing, prompts the user to enter them once.
 
         Raises:
             ConfigurationError: If keys are missing, empty, or set to placeholder values.
         """
-        if not self.api_key:
-            raise ConfigurationError(
-                "BINANCE_API_KEY is not defined in the environment. "
-                "Please configure it in your .env file."
-            )
-        if not self.api_secret:
-            raise ConfigurationError(
-                "BINANCE_API_SECRET is not defined in the environment. "
-                "Please configure it in your .env file."
-            )
+        self.reload()
 
         placeholders: Set[str] = {
             "your_api_key_here",
@@ -68,15 +74,40 @@ class AppConfig:
             ""
         }
 
-        if self.api_key in placeholders:
+        # Prompt interactively if missing/placeholder in interactive CLI mode
+        if interactive_prompt and (not self.api_key or self.api_key in placeholders or not self.api_secret or self.api_secret in placeholders):
+            if sys.stdin.isatty():
+                print("\n\033[93m🔑 Binance API Credentials not found or placeholder detected.\033[0m")
+                if not self.api_key or self.api_key in placeholders:
+                    entered_key = input("\033[1mEnter Binance Testnet API Key: \033[0m").strip()
+                    if entered_key:
+                        self.set_credentials(entered_key, self.api_secret)
+                if not self.api_secret or self.api_secret in placeholders:
+                    entered_secret = input("\033[1mEnter Binance Testnet API Secret: \033[0m").strip()
+                    if entered_secret:
+                        self.set_credentials(self.api_key, entered_secret)
+                
+                # Ask to save to .env
+                if self.api_key and self.api_secret and self.api_key not in placeholders and self.api_secret not in placeholders:
+                    save_env = input("\033[96mSave credentials to .env file for future runs? (y/n) [default y]: \033[0m").strip().lower()
+                    if save_env in ("", "y", "yes"):
+                        try:
+                            env_content = f"BINANCE_API_KEY={self.api_key}\nBINANCE_API_SECRET={self.api_secret}\nTESTNET_URL=https://testnet.binancefuture.com\n"
+                            with open(".env", "w", encoding="utf-8") as f:
+                                f.write(env_content)
+                            print("\033[92m✓ Credentials saved to .env!\033[0m\n")
+                        except Exception as e:
+                            print(f"\033[91mCould not write to .env: {e}\033[0m\n")
+
+        if not self.api_key or self.api_key in placeholders:
             raise ConfigurationError(
-                "BINANCE_API_KEY contains an invalid placeholder or empty string. "
-                "Please update it with your actual Binance Testnet API key."
+                "BINANCE_API_KEY is not defined in environment. "
+                "Specify --api-key / -k flag or configure it in .env"
             )
-        if self.api_secret in placeholders:
+        if not self.api_secret or self.api_secret in placeholders:
             raise ConfigurationError(
-                "BINANCE_API_SECRET contains an invalid placeholder or empty string. "
-                "Please update it with your actual Binance Testnet API secret."
+                "BINANCE_API_SECRET is not defined in environment. "
+                "Specify --api-secret / -s flag or configure it in .env"
             )
 
 # Create a global config instance for singleton access
