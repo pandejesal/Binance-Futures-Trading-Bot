@@ -1,0 +1,453 @@
+[2026-07-21 17:31:32] [INFO] [cli.py:55]: Application starting...
+[2026-07-21 17:31:32] [INFO] [cli.py:141]: Pre-flight parameters passed: BUY MARKET for 0.002 contracts of BTCUSDT
+[2026-07-21 17:31:32] [DEBUG] [client.py:55]: Fetching Binance server time from https://testnet.binancefuture.com/fapi/v1/time...
+[2026-07-21 17:31:32] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:31:32] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "GET /fapi/v1/time HTTP/1.1" 200 28
+[2026-07-21 17:31:32] [INFO] [client.py:75]: Clock synchronized. Offset: -110ms (latency: 71ms).
+[2026-07-21 17:31:32] [INFO] [orders.py:90]: Pre-flight validation passed. Dispatching BUY MARKET order for 0.002 BTCUSDT...
+[2026-07-21 17:31:32] [DEBUG] [client.py:149]: Sending Request: POST https://testnet.binancefuture.com/fapi/v1/order with params: {'symbol': 'BTCUSDT', 'side': 'BUY', 'type': 'MARKET', 'quantity': 0.002, 'timestamp': 1784655092537, 'recvWindow': 5000, 'signature': 'c4da4aeca41000d11fbce6d9e5b6463f937b17a034ef853dc08596afab0c02c9'}
+[2026-07-21 17:31:32] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:31:32] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "POST /fapi/v1/order?symbol=BTCUSDT&side=BUY&type=MARKET&quantity=0.002&timestamp=1784655092537&recvWindow=5000&signature=c4da4aeca41000d11fbce6d9e5b6463f937b17a034ef853dc08596afab0c02c9 HTTP/1.1" 200 None
+[2026-07-21 17:31:32] [DEBUG] [client.py:166]: Raw Response [HTTP 200]: {"orderId":23192373113,"symbol":"BTCUSDT","status":"NEW","clientOrderId":"4VLwhBkYgvR4fKTS1aeF9k","price":"0.00","origQty":"0.0020","executedQty":"0.0000","cumQty":"0.0000","timeInForce":"GTC","type":"MARKET","reduceOnly":false,"closePosition":false,"side":"BUY","positionSide":"BOTH","stopPrice":"0.00","workingType":"CONTRACT_PRICE","priceProtect":false,"origType":"MARKET","priceMatch":"NONE","selfTradePreventionMode":"EXPIRE_MAKER","goodTillDate":0,"updateTime":1784655092736}
+[2026-07-21 17:31:32] [INFO] [orders.py:154]: Successfully processed order! Order ID: 23192373113 | Status: NEW | Executed Qty: 0.0 | Avg Price: 0.0
+[2026-07-21 17:31:32] [INFO] [cli.py:177]: CLI successful execution completed for order ID: 23192373113
+[2026-07-21 17:31:40] [INFO] [cli.py:55]: Application starting...
+[2026-07-21 17:31:40] [INFO] [cli.py:141]: Pre-flight parameters passed: SELL LIMIT for 0.002 contracts of BTCUSDT
+[2026-07-21 17:31:40] [DEBUG] [client.py:55]: Fetching Binance server time from https://testnet.binancefuture.com/fapi/v1/time...
+[2026-07-21 17:31:40] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:31:40] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "GET /fapi/v1/time HTTP/1.1" 200 28
+[2026-07-21 17:31:40] [INFO] [client.py:75]: Clock synchronized. Offset: -98ms (latency: 60ms).
+[2026-07-21 17:31:40] [INFO] [orders.py:90]: Pre-flight validation passed. Dispatching SELL LIMIT order for 0.002 BTCUSDT...
+[2026-07-21 17:31:40] [DEBUG] [client.py:149]: Sending Request: POST https://testnet.binancefuture.com/fapi/v1/order with params: {'symbol': 'BTCUSDT', 'side': 'SELL', 'type': 'LIMIT', 'quantity': 0.002, 'price': 75000.0, 'timeInForce': 'GTC', 'timestamp': 1784655100698, 'recvWindow': 5000, 'signature': '031d026a30974de607aeeeeb16afd9ed9f8fae5bc463d6c3fafa0c11b85443f7'}
+[2026-07-21 17:31:40] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:31:40] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "POST /fapi/v1/order?symbol=BTCUSDT&side=SELL&type=LIMIT&quantity=0.002&price=75000.0&timeInForce=GTC&timestamp=1784655100698&recvWindow=5000&signature=031d026a30974de607aeeeeb16afd9ed9f8fae5bc463d6c3fafa0c11b85443f7 HTTP/1.1" 200 None
+[2026-07-21 17:31:40] [DEBUG] [client.py:166]: Raw Response [HTTP 200]: {"orderId":23192393108,"symbol":"BTCUSDT","status":"NEW","clientOrderId":"n3z4qTywRZkH2MobLGzIdC","price":"75000.00","origQty":"0.0020","executedQty":"0.0000","cumQty":"0.0000","timeInForce":"GTC","type":"LIMIT","reduceOnly":false,"closePosition":false,"side":"SELL","positionSide":"BOTH","stopPrice":"0.00","workingType":"CONTRACT_PRICE","priceProtect":false,"origType":"LIMIT","priceMatch":"NONE","selfTradePreventionMode":"EXPIRE_MAKER","goodTillDate":0,"updateTime":1784655100877}
+[2026-07-21 17:31:40] [INFO] [orders.py:154]: Successfully processed order! Order ID: 23192393108 | Status: NEW | Executed Qty: 0.0 | Avg Price: 75000.0
+[2026-07-21 17:31:40] [INFO] [cli.py:177]: CLI successful execution completed for order ID: 23192393108
+[2026-07-21 17:31:48] [INFO] [cli.py:55]: Application starting...
+[2026-07-21 17:31:48] [INFO] [cli.py:141]: Pre-flight parameters passed: BUY STOP_MARKET for 0.002 contracts of BTCUSDT
+[2026-07-21 17:31:48] [DEBUG] [client.py:55]: Fetching Binance server time from https://testnet.binancefuture.com/fapi/v1/time...
+[2026-07-21 17:31:48] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:31:48] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "GET /fapi/v1/time HTTP/1.1" 200 28
+[2026-07-21 17:31:48] [INFO] [client.py:75]: Clock synchronized. Offset: -100ms (latency: 61ms).
+[2026-07-21 17:31:48] [INFO] [orders.py:90]: Pre-flight validation passed. Dispatching BUY STOP_MARKET order for 0.002 BTCUSDT...
+[2026-07-21 17:31:48] [DEBUG] [client.py:149]: Sending Request: POST https://testnet.binancefuture.com/fapi/v1/order with params: {'symbol': 'BTCUSDT', 'side': 'BUY', 'type': 'STOP_MARKET', 'quantity': 0.002, 'stopPrice': 60000.0, 'timestamp': 1784655108848, 'recvWindow': 5000, 'signature': 'd24c925a3f8a5c6bc861d5cc914575d8fd9f72e33931ba5888d9f92bcaefb26d'}
+[2026-07-21 17:31:48] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:31:49] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "POST /fapi/v1/order?symbol=BTCUSDT&side=BUY&type=STOP_MARKET&quantity=0.002&stopPrice=60000.0&timestamp=1784655108848&recvWindow=5000&signature=d24c925a3f8a5c6bc861d5cc914575d8fd9f72e33931ba5888d9f92bcaefb26d HTTP/1.1" 400 115
+[2026-07-21 17:31:49] [DEBUG] [client.py:166]: Raw Response [HTTP 400]: {"code":-4120,"msg":"Order type not supported for this endpoint. Please use the Algo Order API endpoints instead."}
+[2026-07-21 17:31:49] [ERROR] [orders.py:110]: Order placement failed on exchange: ExchangeAPIError (HTTP 400, Code -4120): Order type not supported for this endpoint. Please use the Algo Order API endpoints instead.
+[2026-07-21 17:31:49] [ERROR] [cli.py:209]: Exchange refused request: ExchangeAPIError (HTTP 400, Code -4120): Order type not supported for this endpoint. Please use the Algo Order API endpoints instead.
+[2026-07-21 17:31:49] [DEBUG] [cli.py:210]: Traceback (most recent call last):
+  File "/app/applet/trading_bot/bot/orders.py", line 97, in place_order
+    raw_response = self.client.send_request(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/applet/trading_bot/bot/client.py", line 180, in send_request
+    raise ExchangeAPIError(
+bot.exceptions.ExchangeAPIError: ExchangeAPIError (HTTP 400, Code -4120): Order type not supported for this endpoint. Please use the Algo Order API endpoints instead.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/app/applet/trading_bot/bot/cli.py", line 152, in main
+    execution = service.place_order(
+                ^^^^^^^^^^^^^^^^^^^^
+  File "/app/applet/trading_bot/bot/orders.py", line 111, in place_order
+    raise mapped_error from e
+bot.exceptions.ExchangeAPIError: ExchangeAPIError (HTTP 400, Code -4120): Order type not supported for this endpoint. Please use the Algo Order API endpoints instead.
+
+[2026-07-21 17:34:22] [INFO] [cli.py:55]: Application starting...
+[2026-07-21 17:34:22] [INFO] [cli.py:141]: Pre-flight parameters passed: BUY MARKET for 0.002 contracts of BTCUSDT
+[2026-07-21 17:34:22] [DEBUG] [client.py:55]: Fetching Binance server time from https://testnet.binancefuture.com/fapi/v1/time...
+[2026-07-21 17:34:22] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:34:22] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "GET /fapi/v1/time HTTP/1.1" 200 28
+[2026-07-21 17:34:22] [INFO] [client.py:75]: Clock synchronized. Offset: -127ms (latency: 88ms).
+[2026-07-21 17:34:22] [INFO] [orders.py:90]: Pre-flight validation passed. Dispatching BUY MARKET order for 0.002 BTCUSDT...
+[2026-07-21 17:34:22] [DEBUG] [client.py:149]: Sending Request: POST https://testnet.binancefuture.com/fapi/v1/order with params: {'symbol': 'BTCUSDT', 'side': 'BUY', 'type': 'MARKET', 'quantity': 0.002, 'timestamp': 1784655262141, 'recvWindow': 5000, 'signature': '116c7294c5a636737eac915c8a76ca4cd4e89313d15ad2948bec35855b71faa1'}
+[2026-07-21 17:34:22] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:34:22] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "POST /fapi/v1/order?symbol=BTCUSDT&side=BUY&type=MARKET&quantity=0.002&timestamp=1784655262141&recvWindow=5000&signature=116c7294c5a636737eac915c8a76ca4cd4e89313d15ad2948bec35855b71faa1 HTTP/1.1" 200 None
+[2026-07-21 17:34:22] [DEBUG] [client.py:166]: Raw Response [HTTP 200]: {"orderId":23192755056,"symbol":"BTCUSDT","status":"NEW","clientOrderId":"2oThNtbkfWsv6UfIklEgCl","price":"0.00","origQty":"0.0020","executedQty":"0.0000","cumQty":"0.0000","timeInForce":"GTC","type":"MARKET","reduceOnly":false,"closePosition":false,"side":"BUY","positionSide":"BOTH","stopPrice":"0.00","workingType":"CONTRACT_PRICE","priceProtect":false,"origType":"MARKET","priceMatch":"NONE","selfTradePreventionMode":"EXPIRE_MAKER","goodTillDate":0,"updateTime":1784655262354}
+[2026-07-21 17:34:22] [INFO] [orders.py:154]: Successfully processed order! Order ID: 23192755056 | Status: NEW | Executed Qty: 0.0 | Avg Price: 0.0
+[2026-07-21 17:34:22] [INFO] [cli.py:177]: CLI successful execution completed for order ID: 23192755056
+[2026-07-21 17:34:24] [INFO] [cli.py:55]: Application starting...
+[2026-07-21 17:34:24] [INFO] [cli.py:141]: Pre-flight parameters passed: SELL LIMIT for 0.05 contracts of ETHUSDT
+[2026-07-21 17:34:24] [DEBUG] [client.py:55]: Fetching Binance server time from https://testnet.binancefuture.com/fapi/v1/time...
+[2026-07-21 17:34:24] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:34:24] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "GET /fapi/v1/time HTTP/1.1" 200 28
+[2026-07-21 17:34:24] [INFO] [client.py:75]: Clock synchronized. Offset: -100ms (latency: 61ms).
+[2026-07-21 17:34:24] [INFO] [orders.py:90]: Pre-flight validation passed. Dispatching SELL LIMIT order for 0.05 ETHUSDT...
+[2026-07-21 17:34:24] [DEBUG] [client.py:149]: Sending Request: POST https://testnet.binancefuture.com/fapi/v1/order with params: {'symbol': 'ETHUSDT', 'side': 'SELL', 'type': 'LIMIT', 'quantity': 0.05, 'price': 3500.0, 'timeInForce': 'GTC', 'timestamp': 1784655264267, 'recvWindow': 5000, 'signature': '19c23b3ac43e782b2f1f04faa82d12579d95cd73219d9956f7ea715af5ec4b67'}
+[2026-07-21 17:34:24] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:34:24] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "POST /fapi/v1/order?symbol=ETHUSDT&side=SELL&type=LIMIT&quantity=0.05&price=3500.0&timeInForce=GTC&timestamp=1784655264267&recvWindow=5000&signature=19c23b3ac43e782b2f1f04faa82d12579d95cd73219d9956f7ea715af5ec4b67 HTTP/1.1" 200 None
+[2026-07-21 17:34:24] [DEBUG] [client.py:166]: Raw Response [HTTP 200]: {"orderId":14098668081,"symbol":"ETHUSDT","status":"NEW","clientOrderId":"oT6qfW2AKw9mFcDd3CoKXx","price":"3500.00","origQty":"0.050","executedQty":"0.000","cumQty":"0.000","timeInForce":"GTC","type":"LIMIT","reduceOnly":false,"closePosition":false,"side":"SELL","positionSide":"BOTH","stopPrice":"0.00","workingType":"CONTRACT_PRICE","priceProtect":false,"origType":"LIMIT","priceMatch":"NONE","selfTradePreventionMode":"EXPIRE_MAKER","goodTillDate":0,"updateTime":1784655264457}
+[2026-07-21 17:34:24] [INFO] [orders.py:154]: Successfully processed order! Order ID: 14098668081 | Status: NEW | Executed Qty: 0.0 | Avg Price: 3500.0
+[2026-07-21 17:34:24] [INFO] [cli.py:177]: CLI successful execution completed for order ID: 14098668081
+[2026-07-21 17:35:29] [INFO] [cli.py:55]: Application starting...
+[2026-07-21 17:35:29] [INFO] [cli.py:141]: Pre-flight parameters passed: BUY MARKET for 0.001 contracts of BTCUSDT
+[2026-07-21 17:35:29] [DEBUG] [client.py:55]: Fetching Binance server time from https://testnet.binancefuture.com/fapi/v1/time...
+[2026-07-21 17:35:29] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:35:30] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "GET /fapi/v1/time HTTP/1.1" 200 28
+[2026-07-21 17:35:30] [INFO] [client.py:75]: Clock synchronized. Offset: -109ms (latency: 72ms).
+[2026-07-21 17:35:30] [INFO] [orders.py:90]: Pre-flight validation passed. Dispatching BUY MARKET order for 0.001 BTCUSDT...
+[2026-07-21 17:35:30] [DEBUG] [client.py:149]: Sending Request: POST https://testnet.binancefuture.com/fapi/v1/order with params: {'symbol': 'BTCUSDT', 'side': 'BUY', 'type': 'MARKET', 'quantity': 0.001, 'timestamp': 1784655330006, 'recvWindow': 5000, 'signature': '306ed431c0d3817fb5ca9a8fe814e7be3401b8541cb342c67d94f38bee507668'}
+[2026-07-21 17:35:30] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:35:30] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "POST /fapi/v1/order?symbol=BTCUSDT&side=BUY&type=MARKET&quantity=0.001&timestamp=1784655330006&recvWindow=5000&signature=306ed431c0d3817fb5ca9a8fe814e7be3401b8541cb342c67d94f38bee507668 HTTP/1.1" 200 None
+[2026-07-21 17:35:30] [DEBUG] [client.py:166]: Raw Response [HTTP 200]: {"orderId":23192924758,"symbol":"BTCUSDT","status":"NEW","clientOrderId":"tieH33LO40nwBuTUPSDp0h","price":"0.00","origQty":"0.0010","executedQty":"0.0000","cumQty":"0.0000","timeInForce":"GTC","type":"MARKET","reduceOnly":false,"closePosition":false,"side":"BUY","positionSide":"BOTH","stopPrice":"0.00","workingType":"CONTRACT_PRICE","priceProtect":false,"origType":"MARKET","priceMatch":"NONE","selfTradePreventionMode":"EXPIRE_MAKER","goodTillDate":0,"updateTime":1784655330197}
+[2026-07-21 17:35:30] [INFO] [orders.py:154]: Successfully processed order! Order ID: 23192924758 | Status: NEW | Executed Qty: 0.0 | Avg Price: 0.0
+[2026-07-21 17:35:30] [INFO] [cli.py:177]: CLI successful execution completed for order ID: 23192924758
+[2026-07-21 17:36:58] [INFO] [cli.py:55]: Application starting...
+[2026-07-21 17:36:58] [INFO] [cli.py:141]: Pre-flight parameters passed: BUY MARKET for 0.001 contracts of BTCUSDT
+[2026-07-21 17:36:58] [DEBUG] [client.py:55]: Fetching Binance server time from https://testnet.binancefuture.com/fapi/v1/time...
+[2026-07-21 17:36:58] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:36:58] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "GET /fapi/v1/time HTTP/1.1" 200 28
+[2026-07-21 17:36:58] [INFO] [client.py:75]: Clock synchronized. Offset: -103ms (latency: 65ms).
+[2026-07-21 17:36:58] [INFO] [orders.py:90]: Pre-flight validation passed. Dispatching BUY MARKET order for 0.001 BTCUSDT...
+[2026-07-21 17:36:58] [DEBUG] [client.py:149]: Sending Request: POST https://testnet.binancefuture.com/fapi/v1/order with params: {'symbol': 'BTCUSDT', 'side': 'BUY', 'type': 'MARKET', 'quantity': 0.001, 'timestamp': 1784655418469, 'recvWindow': 5000, 'signature': '5bbe58f3db59e6f775249354e69a65aeed5c7b7f5742465c06a3dceb1e6b39f4'}
+[2026-07-21 17:36:58] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:36:58] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "POST /fapi/v1/order?symbol=BTCUSDT&side=BUY&type=MARKET&quantity=0.001&timestamp=1784655418469&recvWindow=5000&signature=5bbe58f3db59e6f775249354e69a65aeed5c7b7f5742465c06a3dceb1e6b39f4 HTTP/1.1" 200 None
+[2026-07-21 17:36:58] [DEBUG] [client.py:166]: Raw Response [HTTP 200]: {"orderId":23193132776,"symbol":"BTCUSDT","status":"NEW","clientOrderId":"PgQKjFzkVMalKwMUCjc6MJ","price":"0.00","origQty":"0.0010","executedQty":"0.0000","cumQty":"0.0000","timeInForce":"GTC","type":"MARKET","reduceOnly":false,"closePosition":false,"side":"BUY","positionSide":"BOTH","stopPrice":"0.00","workingType":"CONTRACT_PRICE","priceProtect":false,"origType":"MARKET","priceMatch":"NONE","selfTradePreventionMode":"EXPIRE_MAKER","goodTillDate":0,"updateTime":1784655418652}
+[2026-07-21 17:36:58] [INFO] [orders.py:154]: Successfully processed order! Order ID: 23193132776 | Status: NEW | Executed Qty: 0.0 | Avg Price: 0.0
+[2026-07-21 17:36:58] [INFO] [cli.py:177]: CLI successful execution completed for order ID: 23193132776
+[2026-07-21 17:38:10] [INFO] [cli.py:55]: Application starting...
+[2026-07-21 17:38:10] [INFO] [cli.py:141]: Pre-flight parameters passed: BUY MARKET for 6.0 contracts of BTCUSDT
+[2026-07-21 17:38:10] [DEBUG] [client.py:55]: Fetching Binance server time from https://testnet.binancefuture.com/fapi/v1/time...
+[2026-07-21 17:38:10] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:38:10] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "GET /fapi/v1/time HTTP/1.1" 200 28
+[2026-07-21 17:38:11] [INFO] [client.py:75]: Clock synchronized. Offset: -146ms (latency: 107ms).
+[2026-07-21 17:38:11] [INFO] [orders.py:90]: Pre-flight validation passed. Dispatching BUY MARKET order for 6.0 BTCUSDT...
+[2026-07-21 17:38:11] [DEBUG] [client.py:149]: Sending Request: POST https://testnet.binancefuture.com/fapi/v1/order with params: {'symbol': 'BTCUSDT', 'side': 'BUY', 'type': 'MARKET', 'quantity': 6.0, 'timestamp': 1784655490856, 'recvWindow': 5000, 'signature': 'f1d8e47946199aec9156b151b22166426a6526b199dbbfde7401ae85499cc333'}
+[2026-07-21 17:38:11] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:38:11] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "POST /fapi/v1/order?symbol=BTCUSDT&side=BUY&type=MARKET&quantity=6.0&timestamp=1784655490856&recvWindow=5000&signature=f1d8e47946199aec9156b151b22166426a6526b199dbbfde7401ae85499cc333 HTTP/1.1" 400 46
+[2026-07-21 17:38:11] [DEBUG] [client.py:166]: Raw Response [HTTP 400]: {"code":-2019,"msg":"Margin is insufficient."}
+[2026-07-21 17:38:11] [ERROR] [orders.py:110]: Order placement failed on exchange: ExchangeAPIError (HTTP 400, Code -2019): Insufficient margin/balance. Please deposit USDT into your Binance Futures Testnet account. (Exchange Code: -2019, Details: Margin is insufficient.)
+[2026-07-21 17:38:11] [ERROR] [cli.py:209]: Exchange refused request: ExchangeAPIError (HTTP 400, Code -2019): Insufficient margin/balance. Please deposit USDT into your Binance Futures Testnet account. (Exchange Code: -2019, Details: Margin is insufficient.)
+[2026-07-21 17:38:11] [DEBUG] [cli.py:210]: Traceback (most recent call last):
+  File "/app/applet/trading_bot/bot/orders.py", line 97, in place_order
+    raw_response = self.client.send_request(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/applet/trading_bot/bot/client.py", line 180, in send_request
+    raise ExchangeAPIError(
+bot.exceptions.ExchangeAPIError: ExchangeAPIError (HTTP 400, Code -2019): Margin is insufficient.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/app/applet/trading_bot/bot/cli.py", line 152, in main
+    execution = service.place_order(
+                ^^^^^^^^^^^^^^^^^^^^
+  File "/app/applet/trading_bot/bot/orders.py", line 111, in place_order
+    raise mapped_error from e
+bot.exceptions.ExchangeAPIError: ExchangeAPIError (HTTP 400, Code -2019): Insufficient margin/balance. Please deposit USDT into your Binance Futures Testnet account. (Exchange Code: -2019, Details: Margin is insufficient.)
+
+[2026-07-21 17:38:42] [INFO] [cli.py:55]: Application starting...
+[2026-07-21 17:38:42] [INFO] [cli.py:141]: Pre-flight parameters passed: BUY MARKET for 6.0 contracts of BTCUSDT
+[2026-07-21 17:38:42] [DEBUG] [client.py:55]: Fetching Binance server time from https://testnet.binancefuture.com/fapi/v1/time...
+[2026-07-21 17:38:42] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:38:42] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "GET /fapi/v1/time HTTP/1.1" 200 28
+[2026-07-21 17:38:42] [INFO] [client.py:75]: Clock synchronized. Offset: -102ms (latency: 63ms).
+[2026-07-21 17:38:42] [INFO] [orders.py:90]: Pre-flight validation passed. Dispatching BUY MARKET order for 6.0 BTCUSDT...
+[2026-07-21 17:38:42] [DEBUG] [client.py:149]: Sending Request: POST https://testnet.binancefuture.com/fapi/v1/order with params: {'symbol': 'BTCUSDT', 'side': 'BUY', 'type': 'MARKET', 'quantity': 6.0, 'timestamp': 1784655522437, 'recvWindow': 5000, 'signature': '8d5df198f408795ec4113d8935dd6f7870f213175d18e9b88c3e029190ba5181'}
+[2026-07-21 17:38:42] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:38:42] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "POST /fapi/v1/order?symbol=BTCUSDT&side=BUY&type=MARKET&quantity=6.0&timestamp=1784655522437&recvWindow=5000&signature=8d5df198f408795ec4113d8935dd6f7870f213175d18e9b88c3e029190ba5181 HTTP/1.1" 400 46
+[2026-07-21 17:38:42] [DEBUG] [client.py:166]: Raw Response [HTTP 400]: {"code":-2019,"msg":"Margin is insufficient."}
+[2026-07-21 17:38:42] [ERROR] [orders.py:110]: Order placement failed on exchange: ExchangeAPIError (HTTP 400, Code -2019): Insufficient margin/balance. Please deposit USDT into your Binance Futures Testnet account. (Exchange Code: -2019, Details: Margin is insufficient.)
+[2026-07-21 17:38:42] [ERROR] [cli.py:209]: Exchange refused request: ExchangeAPIError (HTTP 400, Code -2019): Insufficient margin/balance. Please deposit USDT into your Binance Futures Testnet account. (Exchange Code: -2019, Details: Margin is insufficient.)
+[2026-07-21 17:38:42] [DEBUG] [cli.py:210]: Traceback (most recent call last):
+  File "/app/applet/trading_bot/bot/orders.py", line 97, in place_order
+    raw_response = self.client.send_request(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/applet/trading_bot/bot/client.py", line 180, in send_request
+    raise ExchangeAPIError(
+bot.exceptions.ExchangeAPIError: ExchangeAPIError (HTTP 400, Code -2019): Margin is insufficient.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/app/applet/trading_bot/bot/cli.py", line 152, in main
+    execution = service.place_order(
+                ^^^^^^^^^^^^^^^^^^^^
+  File "/app/applet/trading_bot/bot/orders.py", line 111, in place_order
+    raise mapped_error from e
+bot.exceptions.ExchangeAPIError: ExchangeAPIError (HTTP 400, Code -2019): Insufficient margin/balance. Please deposit USDT into your Binance Futures Testnet account. (Exchange Code: -2019, Details: Margin is insufficient.)
+
+[2026-07-21 17:38:52] [INFO] [cli.py:55]: Application starting...
+[2026-07-21 17:38:52] [INFO] [cli.py:141]: Pre-flight parameters passed: BUY MARKET for 4.0 contracts of BTCUSDT
+[2026-07-21 17:38:52] [DEBUG] [client.py:55]: Fetching Binance server time from https://testnet.binancefuture.com/fapi/v1/time...
+[2026-07-21 17:38:52] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:38:52] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "GET /fapi/v1/time HTTP/1.1" 200 28
+[2026-07-21 17:38:52] [INFO] [client.py:75]: Clock synchronized. Offset: -107ms (latency: 66ms).
+[2026-07-21 17:38:52] [INFO] [orders.py:90]: Pre-flight validation passed. Dispatching BUY MARKET order for 4.0 BTCUSDT...
+[2026-07-21 17:38:52] [DEBUG] [client.py:149]: Sending Request: POST https://testnet.binancefuture.com/fapi/v1/order with params: {'symbol': 'BTCUSDT', 'side': 'BUY', 'type': 'MARKET', 'quantity': 4.0, 'timestamp': 1784655532141, 'recvWindow': 5000, 'signature': '6e372d0784ec10a1664af4da74ac18fb445ab86bd0da773c533624e7f168e9cc'}
+[2026-07-21 17:38:52] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:38:52] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "POST /fapi/v1/order?symbol=BTCUSDT&side=BUY&type=MARKET&quantity=4.0&timestamp=1784655532141&recvWindow=5000&signature=6e372d0784ec10a1664af4da74ac18fb445ab86bd0da773c533624e7f168e9cc HTTP/1.1" 400 46
+[2026-07-21 17:38:52] [DEBUG] [client.py:166]: Raw Response [HTTP 400]: {"code":-2019,"msg":"Margin is insufficient."}
+[2026-07-21 17:38:52] [ERROR] [orders.py:110]: Order placement failed on exchange: ExchangeAPIError (HTTP 400, Code -2019): Insufficient margin/balance. Please deposit USDT into your Binance Futures Testnet account. (Exchange Code: -2019, Details: Margin is insufficient.)
+[2026-07-21 17:38:52] [ERROR] [cli.py:209]: Exchange refused request: ExchangeAPIError (HTTP 400, Code -2019): Insufficient margin/balance. Please deposit USDT into your Binance Futures Testnet account. (Exchange Code: -2019, Details: Margin is insufficient.)
+[2026-07-21 17:38:52] [DEBUG] [cli.py:210]: Traceback (most recent call last):
+  File "/app/applet/trading_bot/bot/orders.py", line 97, in place_order
+    raw_response = self.client.send_request(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/applet/trading_bot/bot/client.py", line 180, in send_request
+    raise ExchangeAPIError(
+bot.exceptions.ExchangeAPIError: ExchangeAPIError (HTTP 400, Code -2019): Margin is insufficient.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/app/applet/trading_bot/bot/cli.py", line 152, in main
+    execution = service.place_order(
+                ^^^^^^^^^^^^^^^^^^^^
+  File "/app/applet/trading_bot/bot/orders.py", line 111, in place_order
+    raise mapped_error from e
+bot.exceptions.ExchangeAPIError: ExchangeAPIError (HTTP 400, Code -2019): Insufficient margin/balance. Please deposit USDT into your Binance Futures Testnet account. (Exchange Code: -2019, Details: Margin is insufficient.)
+
+[2026-07-21 17:38:56] [INFO] [cli.py:55]: Application starting...
+[2026-07-21 17:38:56] [INFO] [cli.py:141]: Pre-flight parameters passed: BUY MARKET for 0.01 contracts of BTCUSDT
+[2026-07-21 17:38:56] [DEBUG] [client.py:55]: Fetching Binance server time from https://testnet.binancefuture.com/fapi/v1/time...
+[2026-07-21 17:38:56] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:38:56] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "GET /fapi/v1/time HTTP/1.1" 200 28
+[2026-07-21 17:38:56] [INFO] [client.py:75]: Clock synchronized. Offset: -100ms (latency: 61ms).
+[2026-07-21 17:38:56] [INFO] [orders.py:90]: Pre-flight validation passed. Dispatching BUY MARKET order for 0.01 BTCUSDT...
+[2026-07-21 17:38:56] [DEBUG] [client.py:149]: Sending Request: POST https://testnet.binancefuture.com/fapi/v1/order with params: {'symbol': 'BTCUSDT', 'side': 'BUY', 'type': 'MARKET', 'quantity': 0.01, 'timestamp': 1784655536316, 'recvWindow': 5000, 'signature': '551eb763b3d3b90aee16b693c408faf350095fc2535d4a06bfc9654816d73fed'}
+[2026-07-21 17:38:56] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:38:56] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "POST /fapi/v1/order?symbol=BTCUSDT&side=BUY&type=MARKET&quantity=0.01&timestamp=1784655536316&recvWindow=5000&signature=551eb763b3d3b90aee16b693c408faf350095fc2535d4a06bfc9654816d73fed HTTP/1.1" 200 None
+[2026-07-21 17:38:56] [DEBUG] [client.py:166]: Raw Response [HTTP 200]: {"orderId":23193384292,"symbol":"BTCUSDT","status":"NEW","clientOrderId":"ioq7vYQXBTcx1MyEZS80p8","price":"0.00","origQty":"0.0100","executedQty":"0.0000","cumQty":"0.0000","timeInForce":"GTC","type":"MARKET","reduceOnly":false,"closePosition":false,"side":"BUY","positionSide":"BOTH","stopPrice":"0.00","workingType":"CONTRACT_PRICE","priceProtect":false,"origType":"MARKET","priceMatch":"NONE","selfTradePreventionMode":"EXPIRE_MAKER","goodTillDate":0,"updateTime":1784655536627}
+[2026-07-21 17:38:56] [INFO] [orders.py:154]: Successfully processed order! Order ID: 23193384292 | Status: NEW | Executed Qty: 0.0 | Avg Price: 0.0
+[2026-07-21 17:38:56] [INFO] [cli.py:177]: CLI successful execution completed for order ID: 23193384292
+[2026-07-21 17:39:01] [INFO] [cli.py:55]: Application starting...
+[2026-07-21 17:39:01] [INFO] [cli.py:141]: Pre-flight parameters passed: BUY MARKET for 3.0 contracts of BTCUSDT
+[2026-07-21 17:39:01] [DEBUG] [client.py:55]: Fetching Binance server time from https://testnet.binancefuture.com/fapi/v1/time...
+[2026-07-21 17:39:01] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:39:01] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "GET /fapi/v1/time HTTP/1.1" 200 28
+[2026-07-21 17:39:01] [INFO] [client.py:75]: Clock synchronized. Offset: -113ms (latency: 75ms).
+[2026-07-21 17:39:01] [INFO] [orders.py:90]: Pre-flight validation passed. Dispatching BUY MARKET order for 3.0 BTCUSDT...
+[2026-07-21 17:39:01] [DEBUG] [client.py:149]: Sending Request: POST https://testnet.binancefuture.com/fapi/v1/order with params: {'symbol': 'BTCUSDT', 'side': 'BUY', 'type': 'MARKET', 'quantity': 3.0, 'timestamp': 1784655541389, 'recvWindow': 5000, 'signature': 'a07f463f2e6a482faf5d8d2b816037e4183a75476dc8641eb61b94d865a06d28'}
+[2026-07-21 17:39:01] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:39:01] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "POST /fapi/v1/order?symbol=BTCUSDT&side=BUY&type=MARKET&quantity=3.0&timestamp=1784655541389&recvWindow=5000&signature=a07f463f2e6a482faf5d8d2b816037e4183a75476dc8641eb61b94d865a06d28 HTTP/1.1" 400 46
+[2026-07-21 17:39:01] [DEBUG] [client.py:166]: Raw Response [HTTP 400]: {"code":-2019,"msg":"Margin is insufficient."}
+[2026-07-21 17:39:01] [ERROR] [orders.py:110]: Order placement failed on exchange: ExchangeAPIError (HTTP 400, Code -2019): Insufficient margin/balance. Please deposit USDT into your Binance Futures Testnet account. (Exchange Code: -2019, Details: Margin is insufficient.)
+[2026-07-21 17:39:01] [ERROR] [cli.py:209]: Exchange refused request: ExchangeAPIError (HTTP 400, Code -2019): Insufficient margin/balance. Please deposit USDT into your Binance Futures Testnet account. (Exchange Code: -2019, Details: Margin is insufficient.)
+[2026-07-21 17:39:01] [DEBUG] [cli.py:210]: Traceback (most recent call last):
+  File "/app/applet/trading_bot/bot/orders.py", line 97, in place_order
+    raw_response = self.client.send_request(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/applet/trading_bot/bot/client.py", line 180, in send_request
+    raise ExchangeAPIError(
+bot.exceptions.ExchangeAPIError: ExchangeAPIError (HTTP 400, Code -2019): Margin is insufficient.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/app/applet/trading_bot/bot/cli.py", line 152, in main
+    execution = service.place_order(
+                ^^^^^^^^^^^^^^^^^^^^
+  File "/app/applet/trading_bot/bot/orders.py", line 111, in place_order
+    raise mapped_error from e
+bot.exceptions.ExchangeAPIError: ExchangeAPIError (HTTP 400, Code -2019): Insufficient margin/balance. Please deposit USDT into your Binance Futures Testnet account. (Exchange Code: -2019, Details: Margin is insufficient.)
+
+[2026-07-21 17:39:05] [INFO] [cli.py:55]: Application starting...
+[2026-07-21 17:39:05] [INFO] [cli.py:141]: Pre-flight parameters passed: BUY MARKET for 0.01 contracts of BTCUSDT
+[2026-07-21 17:39:05] [DEBUG] [client.py:55]: Fetching Binance server time from https://testnet.binancefuture.com/fapi/v1/time...
+[2026-07-21 17:39:05] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:39:05] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "GET /fapi/v1/time HTTP/1.1" 200 28
+[2026-07-21 17:39:05] [INFO] [client.py:75]: Clock synchronized. Offset: -100ms (latency: 61ms).
+[2026-07-21 17:39:05] [INFO] [orders.py:90]: Pre-flight validation passed. Dispatching BUY MARKET order for 0.01 BTCUSDT...
+[2026-07-21 17:39:05] [DEBUG] [client.py:149]: Sending Request: POST https://testnet.binancefuture.com/fapi/v1/order with params: {'symbol': 'BTCUSDT', 'side': 'BUY', 'type': 'MARKET', 'quantity': 0.01, 'timestamp': 1784655545437, 'recvWindow': 5000, 'signature': 'd2b3918f77d29fa3f6ed89b5f050fb05efdd305670e8117bbe7425acff66f177'}
+[2026-07-21 17:39:05] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:39:05] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "POST /fapi/v1/order?symbol=BTCUSDT&side=BUY&type=MARKET&quantity=0.01&timestamp=1784655545437&recvWindow=5000&signature=d2b3918f77d29fa3f6ed89b5f050fb05efdd305670e8117bbe7425acff66f177 HTTP/1.1" 200 None
+[2026-07-21 17:39:05] [DEBUG] [client.py:166]: Raw Response [HTTP 200]: {"orderId":23193414828,"symbol":"BTCUSDT","status":"NEW","clientOrderId":"YP5qVnYuXFZHce0jnb3zJb","price":"0.00","origQty":"0.0100","executedQty":"0.0000","cumQty":"0.0000","timeInForce":"GTC","type":"MARKET","reduceOnly":false,"closePosition":false,"side":"BUY","positionSide":"BOTH","stopPrice":"0.00","workingType":"CONTRACT_PRICE","priceProtect":false,"origType":"MARKET","priceMatch":"NONE","selfTradePreventionMode":"EXPIRE_MAKER","goodTillDate":0,"updateTime":1784655545617}
+[2026-07-21 17:39:05] [INFO] [orders.py:154]: Successfully processed order! Order ID: 23193414828 | Status: NEW | Executed Qty: 0.0 | Avg Price: 0.0
+[2026-07-21 17:39:05] [INFO] [cli.py:177]: CLI successful execution completed for order ID: 23193414828
+[2026-07-21 17:39:07] [INFO] [cli.py:55]: Application starting...
+[2026-07-21 17:39:07] [INFO] [cli.py:141]: Pre-flight parameters passed: BUY MARKET for 0.02 contracts of BTCUSDT
+[2026-07-21 17:39:07] [DEBUG] [client.py:55]: Fetching Binance server time from https://testnet.binancefuture.com/fapi/v1/time...
+[2026-07-21 17:39:07] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:39:07] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "GET /fapi/v1/time HTTP/1.1" 200 28
+[2026-07-21 17:39:07] [INFO] [client.py:75]: Clock synchronized. Offset: -99ms (latency: 62ms).
+[2026-07-21 17:39:07] [INFO] [orders.py:90]: Pre-flight validation passed. Dispatching BUY MARKET order for 0.02 BTCUSDT...
+[2026-07-21 17:39:07] [DEBUG] [client.py:149]: Sending Request: POST https://testnet.binancefuture.com/fapi/v1/order with params: {'symbol': 'BTCUSDT', 'side': 'BUY', 'type': 'MARKET', 'quantity': 0.02, 'timestamp': 1784655547160, 'recvWindow': 5000, 'signature': 'fa899ed70f0262df7a1eea82e9b2f2ead4f4015271d11f0a94f3c74ccc4303b6'}
+[2026-07-21 17:39:07] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:39:07] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "POST /fapi/v1/order?symbol=BTCUSDT&side=BUY&type=MARKET&quantity=0.02&timestamp=1784655547160&recvWindow=5000&signature=fa899ed70f0262df7a1eea82e9b2f2ead4f4015271d11f0a94f3c74ccc4303b6 HTTP/1.1" 200 None
+[2026-07-21 17:39:07] [DEBUG] [client.py:166]: Raw Response [HTTP 200]: {"orderId":23193420587,"symbol":"BTCUSDT","status":"NEW","clientOrderId":"WtcoRHuymrTW5iA4RdL4dv","price":"0.00","origQty":"0.0200","executedQty":"0.0000","cumQty":"0.0000","timeInForce":"GTC","type":"MARKET","reduceOnly":false,"closePosition":false,"side":"BUY","positionSide":"BOTH","stopPrice":"0.00","workingType":"CONTRACT_PRICE","priceProtect":false,"origType":"MARKET","priceMatch":"NONE","selfTradePreventionMode":"EXPIRE_MAKER","goodTillDate":0,"updateTime":1784655547338}
+[2026-07-21 17:39:07] [INFO] [orders.py:154]: Successfully processed order! Order ID: 23193420587 | Status: NEW | Executed Qty: 0.0 | Avg Price: 0.0
+[2026-07-21 17:39:07] [INFO] [cli.py:177]: CLI successful execution completed for order ID: 23193420587
+[2026-07-21 17:39:09] [INFO] [cli.py:55]: Application starting...
+[2026-07-21 17:39:09] [INFO] [cli.py:141]: Pre-flight parameters passed: BUY MARKET for 0.05 contracts of BTCUSDT
+[2026-07-21 17:39:09] [DEBUG] [client.py:55]: Fetching Binance server time from https://testnet.binancefuture.com/fapi/v1/time...
+[2026-07-21 17:39:09] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:39:09] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "GET /fapi/v1/time HTTP/1.1" 200 28
+[2026-07-21 17:39:09] [INFO] [client.py:75]: Clock synchronized. Offset: -101ms (latency: 63ms).
+[2026-07-21 17:39:09] [INFO] [orders.py:90]: Pre-flight validation passed. Dispatching BUY MARKET order for 0.05 BTCUSDT...
+[2026-07-21 17:39:09] [DEBUG] [client.py:149]: Sending Request: POST https://testnet.binancefuture.com/fapi/v1/order with params: {'symbol': 'BTCUSDT', 'side': 'BUY', 'type': 'MARKET', 'quantity': 0.05, 'timestamp': 1784655549479, 'recvWindow': 5000, 'signature': '18c662bbbd2be45dc694f97209578d28f17013f2b0a0c3782b39c3d3dfaaa320'}
+[2026-07-21 17:39:09] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:39:09] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "POST /fapi/v1/order?symbol=BTCUSDT&side=BUY&type=MARKET&quantity=0.05&timestamp=1784655549479&recvWindow=5000&signature=18c662bbbd2be45dc694f97209578d28f17013f2b0a0c3782b39c3d3dfaaa320 HTTP/1.1" 200 None
+[2026-07-21 17:39:09] [DEBUG] [client.py:166]: Raw Response [HTTP 200]: {"orderId":23193427950,"symbol":"BTCUSDT","status":"NEW","clientOrderId":"PYRpP84Gg3hVRShF7EscPe","price":"0.00","origQty":"0.0500","executedQty":"0.0000","cumQty":"0.0000","timeInForce":"GTC","type":"MARKET","reduceOnly":false,"closePosition":false,"side":"BUY","positionSide":"BOTH","stopPrice":"0.00","workingType":"CONTRACT_PRICE","priceProtect":false,"origType":"MARKET","priceMatch":"NONE","selfTradePreventionMode":"EXPIRE_MAKER","goodTillDate":0,"updateTime":1784655549661}
+[2026-07-21 17:39:09] [INFO] [orders.py:154]: Successfully processed order! Order ID: 23193427950 | Status: NEW | Executed Qty: 0.0 | Avg Price: 0.0
+[2026-07-21 17:39:09] [INFO] [cli.py:177]: CLI successful execution completed for order ID: 23193427950
+[2026-07-21 17:39:11] [INFO] [cli.py:55]: Application starting...
+[2026-07-21 17:39:11] [INFO] [cli.py:141]: Pre-flight parameters passed: BUY MARKET for 0.06 contracts of BTCUSDT
+[2026-07-21 17:39:11] [DEBUG] [client.py:55]: Fetching Binance server time from https://testnet.binancefuture.com/fapi/v1/time...
+[2026-07-21 17:39:11] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:39:11] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "GET /fapi/v1/time HTTP/1.1" 200 28
+[2026-07-21 17:39:11] [INFO] [client.py:75]: Clock synchronized. Offset: -108ms (latency: 70ms).
+[2026-07-21 17:39:11] [INFO] [orders.py:90]: Pre-flight validation passed. Dispatching BUY MARKET order for 0.06 BTCUSDT...
+[2026-07-21 17:39:11] [DEBUG] [client.py:149]: Sending Request: POST https://testnet.binancefuture.com/fapi/v1/order with params: {'symbol': 'BTCUSDT', 'side': 'BUY', 'type': 'MARKET', 'quantity': 0.06, 'timestamp': 1784655551559, 'recvWindow': 5000, 'signature': '8df66d0652684dec1a8c29d1fbb7e49ce3289cfa2353d13376acbab0aa062971'}
+[2026-07-21 17:39:11] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:39:11] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "POST /fapi/v1/order?symbol=BTCUSDT&side=BUY&type=MARKET&quantity=0.06&timestamp=1784655551559&recvWindow=5000&signature=8df66d0652684dec1a8c29d1fbb7e49ce3289cfa2353d13376acbab0aa062971 HTTP/1.1" 200 None
+[2026-07-21 17:39:11] [DEBUG] [client.py:166]: Raw Response [HTTP 200]: {"orderId":23193430119,"symbol":"BTCUSDT","status":"NEW","clientOrderId":"2IQQWeuHbloqdD1kXcs04f","price":"0.00","origQty":"0.0600","executedQty":"0.0000","cumQty":"0.0000","timeInForce":"GTC","type":"MARKET","reduceOnly":false,"closePosition":false,"side":"BUY","positionSide":"BOTH","stopPrice":"0.00","workingType":"CONTRACT_PRICE","priceProtect":false,"origType":"MARKET","priceMatch":"NONE","selfTradePreventionMode":"EXPIRE_MAKER","goodTillDate":0,"updateTime":1784655551750}
+[2026-07-21 17:39:11] [INFO] [orders.py:154]: Successfully processed order! Order ID: 23193430119 | Status: NEW | Executed Qty: 0.0 | Avg Price: 0.0
+[2026-07-21 17:39:11] [INFO] [cli.py:177]: CLI successful execution completed for order ID: 23193430119
+[2026-07-21 17:39:13] [INFO] [cli.py:55]: Application starting...
+[2026-07-21 17:39:13] [WARNING] [cli.py:181]: Local Pre-flight validation rejected parameters: Quantity must be strictly positive. Received: 0.0
+[2026-07-21 17:39:16] [INFO] [cli.py:55]: Application starting...
+[2026-07-21 17:39:16] [INFO] [cli.py:141]: Pre-flight parameters passed: BUY MARKET for 0.2 contracts of BTCUSDT
+[2026-07-21 17:39:16] [DEBUG] [client.py:55]: Fetching Binance server time from https://testnet.binancefuture.com/fapi/v1/time...
+[2026-07-21 17:39:16] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:39:16] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "GET /fapi/v1/time HTTP/1.1" 200 28
+[2026-07-21 17:39:16] [INFO] [client.py:75]: Clock synchronized. Offset: -119ms (latency: 81ms).
+[2026-07-21 17:39:16] [INFO] [orders.py:90]: Pre-flight validation passed. Dispatching BUY MARKET order for 0.2 BTCUSDT...
+[2026-07-21 17:39:16] [DEBUG] [client.py:149]: Sending Request: POST https://testnet.binancefuture.com/fapi/v1/order with params: {'symbol': 'BTCUSDT', 'side': 'BUY', 'type': 'MARKET', 'quantity': 0.2, 'timestamp': 1784655556807, 'recvWindow': 5000, 'signature': 'c5494d158b81147cd8af67bd8d2fb57d9aa54baf47f026f6ddf12b0de65834a8'}
+[2026-07-21 17:39:16] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:39:17] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "POST /fapi/v1/order?symbol=BTCUSDT&side=BUY&type=MARKET&quantity=0.2&timestamp=1784655556807&recvWindow=5000&signature=c5494d158b81147cd8af67bd8d2fb57d9aa54baf47f026f6ddf12b0de65834a8 HTTP/1.1" 200 None
+[2026-07-21 17:39:17] [DEBUG] [client.py:166]: Raw Response [HTTP 200]: {"orderId":23193434065,"symbol":"BTCUSDT","status":"NEW","clientOrderId":"amGs7DPstAY9eJyw9cCE0u","price":"0.00","origQty":"0.2000","executedQty":"0.0000","cumQty":"0.0000","timeInForce":"GTC","type":"MARKET","reduceOnly":false,"closePosition":false,"side":"BUY","positionSide":"BOTH","stopPrice":"0.00","workingType":"CONTRACT_PRICE","priceProtect":false,"origType":"MARKET","priceMatch":"NONE","selfTradePreventionMode":"EXPIRE_MAKER","goodTillDate":0,"updateTime":1784655557002}
+[2026-07-21 17:39:17] [INFO] [orders.py:154]: Successfully processed order! Order ID: 23193434065 | Status: NEW | Executed Qty: 0.0 | Avg Price: 0.0
+[2026-07-21 17:39:17] [INFO] [cli.py:177]: CLI successful execution completed for order ID: 23193434065
+[2026-07-21 17:39:20] [INFO] [cli.py:55]: Application starting...
+[2026-07-21 17:39:20] [INFO] [cli.py:141]: Pre-flight parameters passed: BUY MARKET for 0.8 contracts of BTCUSDT
+[2026-07-21 17:39:20] [DEBUG] [client.py:55]: Fetching Binance server time from https://testnet.binancefuture.com/fapi/v1/time...
+[2026-07-21 17:39:20] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:39:20] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "GET /fapi/v1/time HTTP/1.1" 200 28
+[2026-07-21 17:39:20] [INFO] [client.py:75]: Clock synchronized. Offset: -102ms (latency: 64ms).
+[2026-07-21 17:39:20] [INFO] [orders.py:90]: Pre-flight validation passed. Dispatching BUY MARKET order for 0.8 BTCUSDT...
+[2026-07-21 17:39:20] [DEBUG] [client.py:149]: Sending Request: POST https://testnet.binancefuture.com/fapi/v1/order with params: {'symbol': 'BTCUSDT', 'side': 'BUY', 'type': 'MARKET', 'quantity': 0.8, 'timestamp': 1784655560416, 'recvWindow': 5000, 'signature': 'd330d55c7c1722615356da758cb6161162a74b9f63f9df9f41c085f7bfe9d477'}
+[2026-07-21 17:39:20] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:39:20] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "POST /fapi/v1/order?symbol=BTCUSDT&side=BUY&type=MARKET&quantity=0.8&timestamp=1784655560416&recvWindow=5000&signature=d330d55c7c1722615356da758cb6161162a74b9f63f9df9f41c085f7bfe9d477 HTTP/1.1" 200 None
+[2026-07-21 17:39:20] [DEBUG] [client.py:166]: Raw Response [HTTP 200]: {"orderId":23193446618,"symbol":"BTCUSDT","status":"NEW","clientOrderId":"OwZEj1wE7Uh86EF60u7SSN","price":"0.00","origQty":"0.8000","executedQty":"0.0000","cumQty":"0.0000","timeInForce":"GTC","type":"MARKET","reduceOnly":false,"closePosition":false,"side":"BUY","positionSide":"BOTH","stopPrice":"0.00","workingType":"CONTRACT_PRICE","priceProtect":false,"origType":"MARKET","priceMatch":"NONE","selfTradePreventionMode":"EXPIRE_MAKER","goodTillDate":0,"updateTime":1784655560600}
+[2026-07-21 17:39:20] [INFO] [orders.py:154]: Successfully processed order! Order ID: 23193446618 | Status: NEW | Executed Qty: 0.0 | Avg Price: 0.0
+[2026-07-21 17:39:20] [INFO] [cli.py:177]: CLI successful execution completed for order ID: 23193446618
+[2026-07-21 17:39:23] [INFO] [cli.py:55]: Application starting...
+[2026-07-21 17:39:23] [INFO] [cli.py:141]: Pre-flight parameters passed: BUY MARKET for 1.0 contracts of BTCUSDT
+[2026-07-21 17:39:23] [DEBUG] [client.py:55]: Fetching Binance server time from https://testnet.binancefuture.com/fapi/v1/time...
+[2026-07-21 17:39:23] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:39:23] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "GET /fapi/v1/time HTTP/1.1" 200 28
+[2026-07-21 17:39:23] [INFO] [client.py:75]: Clock synchronized. Offset: -101ms (latency: 61ms).
+[2026-07-21 17:39:23] [INFO] [orders.py:90]: Pre-flight validation passed. Dispatching BUY MARKET order for 1.0 BTCUSDT...
+[2026-07-21 17:39:23] [DEBUG] [client.py:149]: Sending Request: POST https://testnet.binancefuture.com/fapi/v1/order with params: {'symbol': 'BTCUSDT', 'side': 'BUY', 'type': 'MARKET', 'quantity': 1.0, 'timestamp': 1784655563386, 'recvWindow': 5000, 'signature': '689abe10fc9984ca2f38c85345dee15762c0fb5449dcd1eb95ca122c03a1621e'}
+[2026-07-21 17:39:23] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:39:23] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "POST /fapi/v1/order?symbol=BTCUSDT&side=BUY&type=MARKET&quantity=1.0&timestamp=1784655563386&recvWindow=5000&signature=689abe10fc9984ca2f38c85345dee15762c0fb5449dcd1eb95ca122c03a1621e HTTP/1.1" 400 46
+[2026-07-21 17:39:23] [DEBUG] [client.py:166]: Raw Response [HTTP 400]: {"code":-2019,"msg":"Margin is insufficient."}
+[2026-07-21 17:39:23] [ERROR] [orders.py:110]: Order placement failed on exchange: ExchangeAPIError (HTTP 400, Code -2019): Insufficient margin/balance. Please deposit USDT into your Binance Futures Testnet account. (Exchange Code: -2019, Details: Margin is insufficient.)
+[2026-07-21 17:39:23] [ERROR] [cli.py:209]: Exchange refused request: ExchangeAPIError (HTTP 400, Code -2019): Insufficient margin/balance. Please deposit USDT into your Binance Futures Testnet account. (Exchange Code: -2019, Details: Margin is insufficient.)
+[2026-07-21 17:39:23] [DEBUG] [cli.py:210]: Traceback (most recent call last):
+  File "/app/applet/trading_bot/bot/orders.py", line 97, in place_order
+    raw_response = self.client.send_request(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/applet/trading_bot/bot/client.py", line 180, in send_request
+    raise ExchangeAPIError(
+bot.exceptions.ExchangeAPIError: ExchangeAPIError (HTTP 400, Code -2019): Margin is insufficient.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/app/applet/trading_bot/bot/cli.py", line 152, in main
+    execution = service.place_order(
+                ^^^^^^^^^^^^^^^^^^^^
+  File "/app/applet/trading_bot/bot/orders.py", line 111, in place_order
+    raise mapped_error from e
+bot.exceptions.ExchangeAPIError: ExchangeAPIError (HTTP 400, Code -2019): Insufficient margin/balance. Please deposit USDT into your Binance Futures Testnet account. (Exchange Code: -2019, Details: Margin is insufficient.)
+
+[2026-07-21 17:39:50] [INFO] [cli.py:55]: Application starting...
+[2026-07-21 17:39:50] [INFO] [cli.py:141]: Pre-flight parameters passed: BUY MARKET for 1.0 contracts of BTCUSDT
+[2026-07-21 17:39:50] [DEBUG] [client.py:55]: Fetching Binance server time from https://testnet.binancefuture.com/fapi/v1/time...
+[2026-07-21 17:39:50] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:39:50] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "GET /fapi/v1/time HTTP/1.1" 200 28
+[2026-07-21 17:39:50] [INFO] [client.py:75]: Clock synchronized. Offset: -100ms (latency: 62ms).
+[2026-07-21 17:39:50] [INFO] [orders.py:90]: Pre-flight validation passed. Dispatching BUY MARKET order for 1.0 BTCUSDT...
+[2026-07-21 17:39:50] [DEBUG] [client.py:149]: Sending Request: POST https://testnet.binancefuture.com/fapi/v1/order with params: {'symbol': 'BTCUSDT', 'side': 'BUY', 'type': 'MARKET', 'quantity': 1.0, 'timestamp': 1784655590879, 'recvWindow': 5000, 'signature': 'b8c78debb0e7255c410a9cb6defe1f9168ceb135b7bb7db3242986da07f50782'}
+[2026-07-21 17:39:50] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:39:51] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "POST /fapi/v1/order?symbol=BTCUSDT&side=BUY&type=MARKET&quantity=1.0&timestamp=1784655590879&recvWindow=5000&signature=b8c78debb0e7255c410a9cb6defe1f9168ceb135b7bb7db3242986da07f50782 HTTP/1.1" 400 46
+[2026-07-21 17:39:51] [DEBUG] [client.py:166]: Raw Response [HTTP 400]: {"code":-2019,"msg":"Margin is insufficient."}
+[2026-07-21 17:39:51] [ERROR] [orders.py:110]: Order placement failed on exchange: ExchangeAPIError (HTTP 400, Code -2019): Insufficient margin/balance. Please deposit USDT into your Binance Futures Testnet account. (Exchange Code: -2019, Details: Margin is insufficient.)
+[2026-07-21 17:39:51] [ERROR] [cli.py:209]: Exchange refused request: ExchangeAPIError (HTTP 400, Code -2019): Insufficient margin/balance. Please deposit USDT into your Binance Futures Testnet account. (Exchange Code: -2019, Details: Margin is insufficient.)
+[2026-07-21 17:39:51] [DEBUG] [cli.py:210]: Traceback (most recent call last):
+  File "/app/applet/trading_bot/bot/orders.py", line 97, in place_order
+    raw_response = self.client.send_request(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/applet/trading_bot/bot/client.py", line 180, in send_request
+    raise ExchangeAPIError(
+bot.exceptions.ExchangeAPIError: ExchangeAPIError (HTTP 400, Code -2019): Margin is insufficient.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/app/applet/trading_bot/bot/cli.py", line 152, in main
+    execution = service.place_order(
+                ^^^^^^^^^^^^^^^^^^^^
+  File "/app/applet/trading_bot/bot/orders.py", line 111, in place_order
+    raise mapped_error from e
+bot.exceptions.ExchangeAPIError: ExchangeAPIError (HTTP 400, Code -2019): Insufficient margin/balance. Please deposit USDT into your Binance Futures Testnet account. (Exchange Code: -2019, Details: Margin is insufficient.)
+
+[2026-07-21 17:39:56] [INFO] [cli.py:55]: Application starting...
+[2026-07-21 17:39:56] [INFO] [cli.py:141]: Pre-flight parameters passed: BUY MARKET for 1.0 contracts of ETHUSDT
+[2026-07-21 17:39:56] [DEBUG] [client.py:55]: Fetching Binance server time from https://testnet.binancefuture.com/fapi/v1/time...
+[2026-07-21 17:39:56] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:39:56] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "GET /fapi/v1/time HTTP/1.1" 200 28
+[2026-07-21 17:39:56] [INFO] [client.py:75]: Clock synchronized. Offset: -98ms (latency: 60ms).
+[2026-07-21 17:39:56] [INFO] [orders.py:90]: Pre-flight validation passed. Dispatching BUY MARKET order for 1.0 ETHUSDT...
+[2026-07-21 17:39:56] [DEBUG] [client.py:149]: Sending Request: POST https://testnet.binancefuture.com/fapi/v1/order with params: {'symbol': 'ETHUSDT', 'side': 'BUY', 'type': 'MARKET', 'quantity': 1.0, 'timestamp': 1784655596555, 'recvWindow': 5000, 'signature': '9619b82198913da60b49e33f269b55c8ae30c9da5ba8391e24d8e91a52d33af9'}
+[2026-07-21 17:39:56] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:39:56] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "POST /fapi/v1/order?symbol=ETHUSDT&side=BUY&type=MARKET&quantity=1.0&timestamp=1784655596555&recvWindow=5000&signature=9619b82198913da60b49e33f269b55c8ae30c9da5ba8391e24d8e91a52d33af9 HTTP/1.1" 200 None
+[2026-07-21 17:39:56] [DEBUG] [client.py:166]: Raw Response [HTTP 200]: {"orderId":14099087272,"symbol":"ETHUSDT","status":"NEW","clientOrderId":"SwDMCtuYgCAYlyhrj8QTK1","price":"0.00","origQty":"1.000","executedQty":"0.000","cumQty":"0.000","timeInForce":"GTC","type":"MARKET","reduceOnly":false,"closePosition":false,"side":"BUY","positionSide":"BOTH","stopPrice":"0.00","workingType":"CONTRACT_PRICE","priceProtect":false,"origType":"MARKET","priceMatch":"NONE","selfTradePreventionMode":"EXPIRE_MAKER","goodTillDate":0,"updateTime":1784655596734}
+[2026-07-21 17:39:56] [INFO] [orders.py:154]: Successfully processed order! Order ID: 14099087272 | Status: NEW | Executed Qty: 0.0 | Avg Price: 0.0
+[2026-07-21 17:39:56] [INFO] [cli.py:177]: CLI successful execution completed for order ID: 14099087272
+[2026-07-21 17:41:35] [INFO] [cli.py:55]: Application starting...
+[2026-07-21 17:41:35] [INFO] [cli.py:141]: Pre-flight parameters passed: BUY MARKET for 1.0 contracts of ETHUSDT
+[2026-07-21 17:41:35] [DEBUG] [client.py:55]: Fetching Binance server time from https://testnet.binancefuture.com/fapi/v1/time...
+[2026-07-21 17:41:35] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:41:35] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "GET /fapi/v1/time HTTP/1.1" 200 28
+[2026-07-21 17:41:35] [INFO] [client.py:75]: Clock synchronized. Offset: -143ms (latency: 105ms).
+[2026-07-21 17:41:35] [INFO] [orders.py:90]: Pre-flight validation passed. Dispatching BUY MARKET order for 1.0 ETHUSDT...
+[2026-07-21 17:41:35] [DEBUG] [client.py:149]: Sending Request: POST https://testnet.binancefuture.com/fapi/v1/order with params: {'symbol': 'ETHUSDT', 'side': 'BUY', 'type': 'MARKET', 'quantity': 1.0, 'timestamp': 1784655695628, 'recvWindow': 5000, 'signature': '02f8420159e6afc2db55b659cd3878ecc883996e028b05cc932c77713e4c0895'}
+[2026-07-21 17:41:35] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:41:35] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "POST /fapi/v1/order?symbol=ETHUSDT&side=BUY&type=MARKET&quantity=1.0&timestamp=1784655695628&recvWindow=5000&signature=02f8420159e6afc2db55b659cd3878ecc883996e028b05cc932c77713e4c0895 HTTP/1.1" 200 None
+[2026-07-21 17:41:35] [DEBUG] [client.py:166]: Raw Response [HTTP 200]: {"orderId":14099201178,"symbol":"ETHUSDT","status":"NEW","clientOrderId":"D4papwaH3Y5yyXL2e4yarA","price":"0.00","origQty":"1.000","executedQty":"0.000","cumQty":"0.000","timeInForce":"GTC","type":"MARKET","reduceOnly":false,"closePosition":false,"side":"BUY","positionSide":"BOTH","stopPrice":"0.00","workingType":"CONTRACT_PRICE","priceProtect":false,"origType":"MARKET","priceMatch":"NONE","selfTradePreventionMode":"EXPIRE_MAKER","goodTillDate":0,"updateTime":1784655695854}
+[2026-07-21 17:41:35] [INFO] [orders.py:154]: Successfully processed order! Order ID: 14099201178 | Status: NEW | Executed Qty: 0.0 | Avg Price: 0.0
+[2026-07-21 17:41:35] [INFO] [cli.py:177]: CLI successful execution completed for order ID: 14099201178
+[2026-07-21 17:41:41] [INFO] [cli.py:55]: Application starting...
+[2026-07-21 17:41:41] [INFO] [cli.py:141]: Pre-flight parameters passed: SELL MARKET for 1.0 contracts of ETHUSDT
+[2026-07-21 17:41:41] [DEBUG] [client.py:55]: Fetching Binance server time from https://testnet.binancefuture.com/fapi/v1/time...
+[2026-07-21 17:41:41] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:41:41] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "GET /fapi/v1/time HTTP/1.1" 200 28
+[2026-07-21 17:41:41] [INFO] [client.py:75]: Clock synchronized. Offset: -100ms (latency: 62ms).
+[2026-07-21 17:41:41] [INFO] [orders.py:90]: Pre-flight validation passed. Dispatching SELL MARKET order for 1.0 ETHUSDT...
+[2026-07-21 17:41:41] [DEBUG] [client.py:149]: Sending Request: POST https://testnet.binancefuture.com/fapi/v1/order with params: {'symbol': 'ETHUSDT', 'side': 'SELL', 'type': 'MARKET', 'quantity': 1.0, 'timestamp': 1784655701084, 'recvWindow': 5000, 'signature': '00d7f1b737f9c2a45a5bc2eff756be89a137e3cc0d9c88a9c4ec06234ac5df24'}
+[2026-07-21 17:41:41] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:41:41] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "POST /fapi/v1/order?symbol=ETHUSDT&side=SELL&type=MARKET&quantity=1.0&timestamp=1784655701084&recvWindow=5000&signature=00d7f1b737f9c2a45a5bc2eff756be89a137e3cc0d9c88a9c4ec06234ac5df24 HTTP/1.1" 200 None
+[2026-07-21 17:41:41] [DEBUG] [client.py:166]: Raw Response [HTTP 200]: {"orderId":14099205185,"symbol":"ETHUSDT","status":"NEW","clientOrderId":"7RoWsISlBJrNfy0SC9wB7E","price":"0.00","origQty":"1.000","executedQty":"0.000","cumQty":"0.000","timeInForce":"GTC","type":"MARKET","reduceOnly":false,"closePosition":false,"side":"SELL","positionSide":"BOTH","stopPrice":"0.00","workingType":"CONTRACT_PRICE","priceProtect":false,"origType":"MARKET","priceMatch":"NONE","selfTradePreventionMode":"EXPIRE_MAKER","goodTillDate":0,"updateTime":1784655701270}
+[2026-07-21 17:41:41] [INFO] [orders.py:154]: Successfully processed order! Order ID: 14099205185 | Status: NEW | Executed Qty: 0.0 | Avg Price: 0.0
+[2026-07-21 17:41:41] [INFO] [cli.py:177]: CLI successful execution completed for order ID: 14099205185
+[2026-07-21 17:41:44] [INFO] [cli.py:55]: Application starting...
+[2026-07-21 17:41:44] [INFO] [cli.py:141]: Pre-flight parameters passed: SELL MARKET for 1.0 contracts of ETHUSDT
+[2026-07-21 17:41:44] [DEBUG] [client.py:55]: Fetching Binance server time from https://testnet.binancefuture.com/fapi/v1/time...
+[2026-07-21 17:41:44] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:41:45] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "GET /fapi/v1/time HTTP/1.1" 200 28
+[2026-07-21 17:41:45] [INFO] [client.py:75]: Clock synchronized. Offset: -102ms (latency: 62ms).
+[2026-07-21 17:41:45] [INFO] [orders.py:90]: Pre-flight validation passed. Dispatching SELL MARKET order for 1.0 ETHUSDT...
+[2026-07-21 17:41:45] [DEBUG] [client.py:149]: Sending Request: POST https://testnet.binancefuture.com/fapi/v1/order with params: {'symbol': 'ETHUSDT', 'side': 'SELL', 'type': 'MARKET', 'quantity': 1.0, 'timestamp': 1784655704932, 'recvWindow': 5000, 'signature': '4e7b810f6a6ffbcbf5091827d6d885a80072815d16fccfcb206ca96f04b3452c'}
+[2026-07-21 17:41:45] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:41:45] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "POST /fapi/v1/order?symbol=ETHUSDT&side=SELL&type=MARKET&quantity=1.0&timestamp=1784655704932&recvWindow=5000&signature=4e7b810f6a6ffbcbf5091827d6d885a80072815d16fccfcb206ca96f04b3452c HTTP/1.1" 200 None
+[2026-07-21 17:41:45] [DEBUG] [client.py:166]: Raw Response [HTTP 200]: {"orderId":14099208503,"symbol":"ETHUSDT","status":"NEW","clientOrderId":"zSLV7BwFUNLM1uLknqpJyr","price":"0.00","origQty":"1.000","executedQty":"0.000","cumQty":"0.000","timeInForce":"GTC","type":"MARKET","reduceOnly":false,"closePosition":false,"side":"SELL","positionSide":"BOTH","stopPrice":"0.00","workingType":"CONTRACT_PRICE","priceProtect":false,"origType":"MARKET","priceMatch":"NONE","selfTradePreventionMode":"EXPIRE_MAKER","goodTillDate":0,"updateTime":1784655705113}
+[2026-07-21 17:41:45] [INFO] [orders.py:154]: Successfully processed order! Order ID: 14099208503 | Status: NEW | Executed Qty: 0.0 | Avg Price: 0.0
+[2026-07-21 17:41:45] [INFO] [cli.py:177]: CLI successful execution completed for order ID: 14099208503
+[2026-07-21 17:41:47] [INFO] [cli.py:55]: Application starting...
+[2026-07-21 17:41:47] [INFO] [cli.py:141]: Pre-flight parameters passed: SELL MARKET for 1.0 contracts of ETHUSDT
+[2026-07-21 17:41:47] [DEBUG] [client.py:55]: Fetching Binance server time from https://testnet.binancefuture.com/fapi/v1/time...
+[2026-07-21 17:41:47] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:41:47] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "GET /fapi/v1/time HTTP/1.1" 200 28
+[2026-07-21 17:41:47] [INFO] [client.py:75]: Clock synchronized. Offset: -105ms (latency: 65ms).
+[2026-07-21 17:41:47] [INFO] [orders.py:90]: Pre-flight validation passed. Dispatching SELL MARKET order for 1.0 ETHUSDT...
+[2026-07-21 17:41:47] [DEBUG] [client.py:149]: Sending Request: POST https://testnet.binancefuture.com/fapi/v1/order with params: {'symbol': 'ETHUSDT', 'side': 'SELL', 'type': 'MARKET', 'quantity': 1.0, 'timestamp': 1784655707731, 'recvWindow': 5000, 'signature': '53289bd8bbeae5c07fc545d09d8c01f0d875c3304be5c3fdf91f9d6b0a8a6c2a'}
+[2026-07-21 17:41:47] [DEBUG] [connectionpool.py:1062]: Starting new HTTPS connection (1): testnet.binancefuture.com:443
+[2026-07-21 17:41:47] [DEBUG] [connectionpool.py:544]: https://testnet.binancefuture.com:443 "POST /fapi/v1/order?symbol=ETHUSDT&side=SELL&type=MARKET&quantity=1.0&timestamp=1784655707731&recvWindow=5000&signature=53289bd8bbeae5c07fc545d09d8c01f0d875c3304be5c3fdf91f9d6b0a8a6c2a HTTP/1.1" 200 None
+[2026-07-21 17:41:47] [DEBUG] [client.py:166]: Raw Response [HTTP 200]: {"orderId":14099211501,"symbol":"ETHUSDT","status":"NEW","clientOrderId":"JIfWDykKePNhyEqadv2jnJ","price":"0.00","origQty":"1.000","executedQty":"0.000","cumQty":"0.000","timeInForce":"GTC","type":"MARKET","reduceOnly":false,"closePosition":false,"side":"SELL","positionSide":"BOTH","stopPrice":"0.00","workingType":"CONTRACT_PRICE","priceProtect":false,"origType":"MARKET","priceMatch":"NONE","selfTradePreventionMode":"EXPIRE_MAKER","goodTillDate":0,"updateTime":1784655707914}
+[2026-07-21 17:41:47] [INFO] [orders.py:154]: Successfully processed order! Order ID: 14099211501 | Status: NEW | Executed Qty: 0.0 | Avg Price: 0.0
+[2026-07-21 17:41:47] [INFO] [cli.py:177]: CLI successful execution completed for order ID: 14099211501
