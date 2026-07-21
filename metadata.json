@@ -1,0 +1,6 @@
+{
+  "name": "Binance Futures Trading Bot",
+  "description": "A production-grade, highly robust Python command-line trading bot for placing orders on the Binance Futures Testnet (USDT-M) using direct REST API calls, with an interactive full-stack React dashboard, live trace logs, and automated unit testing.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
