@@ -55,56 +55,48 @@ To run live mock trades on the Binance Futures Testnet, fetch your sandbox crede
 
 ---
 
-## 🚀 Installation & Command-Line Usage
+## 🚀 Quickstart: Running on Laptop via Windows Command Prompt (CMD)
 
-### 1. Prerequisites
-- Python 3.10 or higher
-- `pip` (Python Package Installer)
+You do **NOT** need to create or edit any `.env` files manually! The application handles configuration automatically.
 
-### 2. Setup environment
-Create a virtual environment and install dependencies:
+### Step 1: Open CMD and Clone the Repository
+Open Command Prompt (`cmd.exe`) on your Windows laptop and run:
+```cmd
+git clone https://github.com/pandejesal/Binance-Futures-Trading-Bot.git
+cd Binance-Futures-Trading-Bot
+```
 
-```bash
-# Clone or enter the project directory
-cd trading_bot
-
-# Create a virtual environment
-python3 -m venv venv
-
-# Activate virtual environment
-# On Linux/macOS:
-source venv/bin/activate
-# On Windows:
+### Step 2: Create & Activate Python Virtual Environment
+```cmd
+python -m venv venv
 venv\Scripts\activate
+```
 
-# Install minimalist dependencies (no python-binance wrapper needed)
+### Step 3: Install Required Dependencies
+```cmd
 pip install -r requirements.txt
 ```
 
-### 3. Environment Variables
-Copy `.env.template` into a new `.env` file:
-```bash
-cp .env.template .env
+### Step 4: Run the Bot
+Simply execute:
+```cmd
+python main.py
 ```
-Open `.env` and fill in your keys:
-```env
-BINANCE_API_KEY="your_actual_binance_testnet_api_key"
-BINANCE_API_SECRET="your_actual_binance_testnet_secret_key"
-```
+
+> **🔑 Automated Credentials Setup:**
+> On your first run, the bot will automatically detect if API credentials are missing and prompt you in CMD to enter your **Binance Testnet API Key** and **Secret Key**. It will then automatically save them for future runs!
 
 ---
 
-## 💻 CLI Command Execution & Interactive Wizard Examples
+## 💻 Usage Options & Command Cheat Sheet
 
-Run these commands from your terminal (make sure your virtualenv is activated and `.env` is loaded).
-
-### A. Launch Interactive Terminal Menu / Wizard (Recommended)
-Simply run `python main.py` with no flags (or with `-i` / `--interactive`) to open the interactive wizard:
-```bash
-python3 main.py
+### Option A: Interactive Command-Line Wizard (Recommended)
+Run `python main.py` without arguments to launch the interactive menu:
+```cmd
+python main.py
 ```
-This opens an interactive menu offering:
-- 🚀 **Interactive Order Wizard**: Step-by-step prompts for Symbol, Side, Type, Quantity, Price, Stop Price, with a pre-flight review card and execution confirmation.
+This opens an interactive terminal menu with:
+- 🚀 **Interactive Order Wizard**: Step-by-step prompts for Symbol, Side, Type, Quantity, Price, Stop Price with pre-flight review and confirmation.
 - 💰 **View Account Balances**: Live USDT margin, wallet balances, and unrealized PnL.
 - 📋 **View Active Open Orders**: Table of all live limit or stop orders on Binance Testnet.
 - ❌ **Cancel Active Orders**: Quick selection to cancel open orders by Order ID.
@@ -112,66 +104,65 @@ This opens an interactive menu offering:
 
 ---
 
-### B. Direct Command-Line Flag Mode & Short Commands
+### Option B: Quick Direct Short Commands
+Run simple 2-4 word commands directly in Command Prompt (`cmd`):
 
-#### ⚡ Ultra-Fast Short Commands (Recommended for Laptop / Command Prompt)
-Run simple 2-4 word commands directly from your Windows Command Prompt (`cmd`), PowerShell, or terminal:
-
-```bash
-# 1. Quick Market Buy (Symbol Quantity)
-python main.py buy BTCUSDT 0.002
-
-# 2. Quick Limit Buy (Symbol Quantity Price)
-python main.py buy BTCUSDT 0.002 65000
-
-# 3. Quick Market Sell (Symbol Quantity)
-python main.py sell ETHUSDT 0.05
-
-# 4. Quick Limit Sell (Symbol Quantity Price)
-python main.py sell ETHUSDT 0.05 3500
-
-# 5. Quick Account Balance Check
+```cmd
+# 1. Check Account Margin & Wallet Balance
 python main.py balance
 
-# 6. Quick Active Open Orders Check
+# 2. Quick Market Buy (Symbol Quantity)
+python main.py buy BTCUSDT 0.002
+
+# 3. Quick Limit Buy (Symbol Quantity Price)
+python main.py buy BTCUSDT 0.002 65000
+
+# 4. Quick Market Sell (Symbol Quantity)
+python main.py sell ETHUSDT 0.05
+
+# 5. Quick Limit Sell (Symbol Quantity Price)
+python main.py sell ETHUSDT 0.05 3500
+
+# 6. Check Active Open Orders
 python main.py orders
 
-# 7. Quick Cancel Order (Symbol OrderID)
+# 7. Cancel Open Order (Symbol OrderID)
 python main.py cancel BTCUSDT 23202119036
 
-# 8. Quick View Execution Logs
+# 8. View Live Execution Logs
 python main.py logs
-
-# 9. Pass API Key & Secret directly via flags (-k and -s)
-python main.py -k YOUR_API_KEY -s YOUR_API_SECRET balance
 ```
-
-> **Note on Automatic Credential Setup:** If `.env` is missing or keys are not set yet, running any command will automatically prompt you to paste your Binance Testnet API key and secret once, and offer to save them to `.env` automatically!
 
 ---
 
-#### Standard Command-Line Flags
-```bash
+### Option C: Override Credentials via Command-Line Flags
+If you prefer to pass your API credentials directly in CMD without saving them:
+```cmd
+python main.py -k YOUR_BINANCE_API_KEY -s YOUR_BINANCE_SECRET balance
+python main.py -k YOUR_BINANCE_API_KEY -s YOUR_BINANCE_SECRET buy BTCUSDT 0.002
+```
+
+---
+
+### Option D: Standard Command-Line Flags
+```cmd
 # Market Order
-python3 main.py --symbol BTCUSDT --side BUY --type MARKET --quantity 0.002
+python main.py --symbol BTCUSDT --side BUY --type MARKET --quantity 0.002
 
 # Limit Order
-python3 main.py --symbol ETHUSDT --side SELL --type LIMIT --quantity 0.05 --price 3500.00
+python main.py --symbol ETHUSDT --side SELL --type LIMIT --quantity 0.05 --price 3500.00
 
 # Stop Market Order
-python3 main.py --symbol SOLUSDT --side BUY --type STOP_MARKET --quantity 10.0 --stop-price 155.50
+python main.py --symbol SOLUSDT --side BUY --type STOP_MARKET --quantity 10.0 --stop-price 155.50
 
 # View Account Balances & Margin
-python3 main.py --balance
+python main.py --balance
 
 # View Active Open Orders
-python3 main.py --open-orders
+python main.py --open-orders
 
 # Cancel Active Order
-python3 main.py --cancel-order 14098668081 --symbol ETHUSDT
-
-# View Recent Execution Logs
-python3 main.py --logs
+python main.py --cancel-order 14098668081 --symbol ETHUSDT
 ```
 
 ---
